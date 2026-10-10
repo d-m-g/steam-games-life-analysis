@@ -1,36 +1,42 @@
-# Steam game retention: will this game still have players in 6–12 months?
+# Steam early decline warning: which live games will lose half their players?
 
-Given 90 days of Steam player counts, Twitch attention and store metadata, we predict whether a game will still average **at least 10 concurrent players** 6–12 months later. The target users are publishers and live-ops teams deciding where to spend on updates, community and marketing across a catalogue of live games.
+Given 90 days of Steam player counts, Twitch attention and store metadata, we rank live Steam games (≥ 10 average players) by their risk of a **major decline**, meaning their average players in months 6–12 fall to **less than half** of today's level. The target users are publishers and live-ops teams. Each quarter they decide which games get updates, sales, marketing and server budget, and which are about to lose a large part of their audience.
 
-**Headline results** (out-of-time backtest: trained on Dec 2017 data, tested on 1,851 games from Feb 2019 → Jan 2020):
+**Headline results.** Out-of-time backtest: trained on Dec 2017 data, tested on 1,559 live games starting Feb 2019, of which 5.6% lost half.
 
-| | Simple rule "≥10 players today" | Random forest |
-| --- | ---: | ---: |
-| ROC-AUC, all games | 0.982 | 0.982 |
-| Balanced accuracy, all games | 0.927 | 0.957 |
-| Lost games caught (recall) | 87% | 94% |
-| ROC-AUC, 537 borderline games (5–50 players) | 0.931 | 0.961 |
+| | Trend rule | Game-age rule | Random forest |
+| --- | ---: | ---: | ---: |
+| ROC-AUC, all live games | 0.586 | 0.611 | **0.826** |
+| ROC-AUC, games with 1,000+ players | 0.469 | 0.574 | **0.802** |
+| ROC-AUC, 141 launch-stage games | 0.774 | – | **0.787** |
+| Watch list (top 10%): share that lost half | 22% | 8% | **28%** (5× the base rate) |
+| Share of all collapses on the watch list | 39% | 14% | **50%** |
 
-- In the backtest, 87% of games flagged **high risk** fell below 10 players; only 0.4% of **low risk** games did.
-- Twitch viewership adds nothing once Steam numbers are known (+0.0002 AUC).
-- The full write-up is in [reports/technical_report.md](reports/technical_report.md); the numbers come from [reports/metrics.json](reports/metrics.json).
+- The ranking held in the 2020 lockdown period (AUC 0.826), even though market-wide decline rates swung from 20% to 3%. That swing is why the product is a **ranked watch list**, not a probability.
+- On launch-stage games the model is only on par with the trend rule. Twitch adds nothing once Steam data is known.
+- A secondary **end-of-life model** (will a game stay above 10 players?) is in `retention-analysis.ipynb`.
+- The full write-up is in [reports/technical_report.md](reports/technical_report.md).
 
 ## Repository layout
 
 ```text
 src/
   data-preprocessing/
-    preprocess.ipynb        1. five-minute Steam histories -> daily panel + game summary
-    twitch-mapping.ipynb    2. validate the Twitch<->Steam mapping, build monthly Twitch table
-  retention-analysis.ipynb  3. features, EDA, models, backtest, ablation, risk tables
-  data-exploration.ipynb    (optional) first look at the raw files
+    preprocess.ipynb          1. five-minute Steam histories -> daily panel + game summary
+    twitch-mapping.ipynb      2. validate the Twitch<->Steam mapping, build monthly Twitch table
+  decline-analysis.ipynb      3. MAIN: relative-decline watch list (features, EDA, models, backtest,
+                                 big games, launch stage, ablation, robustness, watch lists)
+  retention-analysis.ipynb    4. secondary: end-of-life model (stays above 10 players)
+  data-exploration.ipynb      (optional) first look at the raw files
 reports/
-  technical_report.md       technical report with results and limitations
-  figures/                  every figure used in the report and slides (PNG)
-  metrics.json              all reported numbers, written by retention-analysis.ipynb
-  risk_table_backtest_2019.csv   backtest risk tiers with actual outcomes
-  risk_forecast_2020-08.csv      forward risk forecast from the latest 90 days
-data/                       not in git (see below)
+  technical_report.md         technical report with results and limitations
+  figures/decline/            figures for the main (decline) model
+  figures/                    figures for the secondary (end-of-life) model
+  decline_metrics.json        every number of the main model
+  decline_watchlist_backtest_2019.csv    backtest watch list with actual outcomes
+  decline_watchlist_forecast_2020-08.csv forward watch list from the latest 90 days
+  metrics.json, risk_table_backtest_2019.csv, risk_forecast_2020-08.csv   secondary model
+data/                         not in git (see below)
 ```
 
 ## Data
@@ -56,6 +62,7 @@ Then run the notebooks in this order (each reads the previous one's output):
 
 1. `src/data-preprocessing/preprocess.ipynb` (≈6 min, reads 6 GB) → `data/processed/steam_daily_panel.parquet`, `steam_game_summary.csv`
 2. `src/data-preprocessing/twitch-mapping.ipynb` → `data/sullygnome/twitch_monthly_by_appid.csv`, `appid_map_validated.csv`
-3. `src/retention-analysis.ipynb` (≈2 min) → everything in `reports/`
+3. `src/decline-analysis.ipynb` (≈4 min) → `reports/decline_*`, `reports/figures/decline/`
+4. `src/retention-analysis.ipynb` (≈4 min, optional) → secondary model outputs in `reports/`
 
 All models use fixed random seeds, so a rerun reproduces the reported numbers.

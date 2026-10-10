@@ -1,0 +1,743 @@
+{
+  "settings": {
+    "feature_days": 90,
+    "target_days": [
+      180,
+      365
+    ],
+    "min_players": 10,
+    "decline_ratio": 0.5,
+    "watchlist_share": 0.1,
+    "trend_rule_cutoff": -0.0926,
+    "origins": {
+      "train": "2017-12-14",
+      "train_2": "2018-06-14",
+      "test": "2019-02-01",
+      "test_covid": "2019-08-01"
+    },
+    "best_model": "Random forest"
+  },
+  "overview": {
+    "train": {
+      "origin": 1513209600000,
+      "live_games": 1758,
+      "decline_rate": 0.1974,
+      "median_change": 0.7423,
+      "lost_25pct_or_more": 0.5114
+    },
+    "train_2": {
+      "origin": 1528934400000,
+      "live_games": 1627,
+      "decline_rate": 0.1069,
+      "median_change": 0.8664,
+      "lost_25pct_or_more": 0.3313
+    },
+    "test": {
+      "origin": 1548979200000,
+      "live_games": 1559,
+      "decline_rate": 0.0564,
+      "median_change": 0.9465,
+      "lost_25pct_or_more": 0.1924
+    },
+    "test_covid": {
+      "origin": 1564617600000,
+      "live_games": 1528,
+      "decline_rate": 0.0255,
+      "median_change": 1.3475,
+      "lost_25pct_or_more": 0.0517
+    }
+  },
+  "groups": {
+    "Size now": [
+      {
+        "group": "10–100 players",
+        "games": 800,
+        "decline_rate": 0.2862,
+        "ci_low": 0.256,
+        "ci_high": 0.3185
+      },
+      {
+        "group": "100–1,000 players",
+        "games": 738,
+        "decline_rate": 0.126,
+        "ci_low": 0.104,
+        "ci_high": 0.1519
+      },
+      {
+        "group": "1,000+ players",
+        "games": 220,
+        "decline_rate": 0.1136,
+        "ci_low": 0.0782,
+        "ci_high": 0.1624
+      }
+    ],
+    "90-day trend": [
+      {
+        "group": "Falling fast",
+        "games": 799,
+        "decline_rate": 0.2816,
+        "ci_low": 0.2515,
+        "ci_high": 0.3138
+      },
+      {
+        "group": "Falling slowly",
+        "games": 454,
+        "decline_rate": 0.0771,
+        "ci_low": 0.056,
+        "ci_high": 0.1053
+      },
+      {
+        "group": "Flat",
+        "games": 177,
+        "decline_rate": 0.0734,
+        "ci_low": 0.0434,
+        "ci_high": 0.1216
+      },
+      {
+        "group": "Growing",
+        "games": 328,
+        "decline_rate": 0.2256,
+        "ci_low": 0.1837,
+        "ci_high": 0.2739
+      }
+    ],
+    "Game age": [
+      {
+        "group": "< 6 months",
+        "games": 306,
+        "decline_rate": 0.3366,
+        "ci_low": 0.286,
+        "ci_high": 0.3913
+      },
+      {
+        "group": "6 months – 2 years",
+        "games": 546,
+        "decline_rate": 0.2875,
+        "ci_low": 0.2512,
+        "ci_high": 0.3269
+      },
+      {
+        "group": "2–5 years",
+        "games": 543,
+        "decline_rate": 0.1197,
+        "ci_low": 0.095,
+        "ci_high": 0.1497
+      },
+      {
+        "group": "5+ years",
+        "games": 344,
+        "decline_rate": 0.0494,
+        "ci_low": 0.0311,
+        "ci_high": 0.0777
+      }
+    ],
+    "Business model": [
+      {
+        "group": "Free to play",
+        "games": 339,
+        "decline_rate": 0.1947,
+        "ci_low": 0.1561,
+        "ci_high": 0.2402
+      },
+      {
+        "group": "Paid",
+        "games": 1412,
+        "decline_rate": 0.1962,
+        "ci_low": 0.1763,
+        "ci_high": 0.2177
+      }
+    ],
+    "Genre (several per game)": [
+      {
+        "group": "Racing",
+        "games": 61,
+        "decline_rate": 0.0984,
+        "ci_low": 0.0459,
+        "ci_high": 0.1984
+      },
+      {
+        "group": "Strategy",
+        "games": 520,
+        "decline_rate": 0.1327,
+        "ci_low": 0.1062,
+        "ci_high": 0.1646
+      },
+      {
+        "group": "Rpg",
+        "games": 453,
+        "decline_rate": 0.1501,
+        "ci_low": 0.1202,
+        "ci_high": 0.1859
+      },
+      {
+        "group": "Simulation",
+        "games": 426,
+        "decline_rate": 0.1502,
+        "ci_low": 0.1194,
+        "ci_high": 0.1873
+      },
+      {
+        "group": "Sports",
+        "games": 85,
+        "decline_rate": 0.1529,
+        "ci_low": 0.0916,
+        "ci_high": 0.2443
+      },
+      {
+        "group": "Early Access",
+        "games": 82,
+        "decline_rate": 0.1707,
+        "ci_low": 0.1045,
+        "ci_high": 0.2664
+      },
+      {
+        "group": "Massively Multiplayer",
+        "games": 187,
+        "decline_rate": 0.1765,
+        "ci_low": 0.1285,
+        "ci_high": 0.2375
+      },
+      {
+        "group": "Free To Play",
+        "games": 282,
+        "decline_rate": 0.1915,
+        "ci_low": 0.1498,
+        "ci_high": 0.2414
+      },
+      {
+        "group": "Action",
+        "games": 837,
+        "decline_rate": 0.2162,
+        "ci_low": 0.1897,
+        "ci_high": 0.2454
+      },
+      {
+        "group": "Adventure",
+        "games": 517,
+        "decline_rate": 0.2456,
+        "ci_low": 0.2105,
+        "ci_high": 0.2845
+      },
+      {
+        "group": "Indie",
+        "games": 747,
+        "decline_rate": 0.2851,
+        "ci_low": 0.2539,
+        "ci_high": 0.3186
+      },
+      {
+        "group": "Casual",
+        "games": 266,
+        "decline_rate": 0.3534,
+        "ci_low": 0.2984,
+        "ci_high": 0.4125
+      }
+    ]
+  },
+  "cv": {
+    "No change (persistence)": {
+      "roc_auc": 0.5,
+      "watchlist_precision": 0.1974,
+      "watchlist_lift": 1.0,
+      "balanced_accuracy": 0.5
+    },
+    "Trend rule": {
+      "roc_auc": 0.6525,
+      "watchlist_precision": 0.6667,
+      "watchlist_lift": 3.3792,
+      "balanced_accuracy": 0.6131
+    },
+    "Age rule": {
+      "roc_auc": 0.6932,
+      "watchlist_precision": 0.3722,
+      "watchlist_lift": 1.8852,
+      "balanced_accuracy": 0.5993
+    },
+    "Logistic regression": {
+      "roc_auc": 0.8827,
+      "watchlist_precision": 0.8389,
+      "watchlist_lift": 4.2491,
+      "balanced_accuracy": 0.7825
+    },
+    "Random forest": {
+      "roc_auc": 0.8894,
+      "watchlist_precision": 0.8389,
+      "watchlist_lift": 4.2495,
+      "balanced_accuracy": 0.7792
+    },
+    "Gradient boosting": {
+      "roc_auc": 0.8736,
+      "watchlist_precision": 0.8444,
+      "watchlist_lift": 4.2775,
+      "balanced_accuracy": 0.782
+    }
+  },
+  "test": {
+    "No change (persistence)": {
+      "roc_auc": 0.5,
+      "avg_precision": 0.0564,
+      "watchlist_precision": 0.0564,
+      "watchlist_lift": 1.0,
+      "watchlist_recall": 0.1,
+      "balanced_accuracy": 0.5,
+      "precision": 0.0,
+      "recall": 0.0,
+      "roc_auc_low": 0.5,
+      "watchlist_precision_low": 0.0449,
+      "roc_auc_high": 0.5,
+      "watchlist_precision_high": 0.068
+    },
+    "Trend rule": {
+      "roc_auc": 0.5856,
+      "avg_precision": 0.2878,
+      "watchlist_precision": 0.2179,
+      "watchlist_lift": 3.8612,
+      "watchlist_recall": 0.3864,
+      "balanced_accuracy": 0.5877,
+      "precision": 0.0826,
+      "recall": 0.5227,
+      "roc_auc_low": 0.4952,
+      "watchlist_precision_low": 0.1474,
+      "roc_auc_high": 0.6736,
+      "watchlist_precision_high": 0.2821
+    },
+    "Age rule": {
+      "roc_auc": 0.6114,
+      "avg_precision": 0.0929,
+      "watchlist_precision": 0.0769,
+      "watchlist_lift": 1.3628,
+      "watchlist_recall": 0.1364,
+      "balanced_accuracy": 0.5288,
+      "precision": 0.1404,
+      "recall": 0.0909,
+      "roc_auc_low": 0.559,
+      "watchlist_precision_low": 0.0385,
+      "roc_auc_high": 0.6651,
+      "watchlist_precision_high": 0.1284
+    },
+    "Logistic regression": {
+      "roc_auc": 0.8189,
+      "avg_precision": 0.4115,
+      "watchlist_precision": 0.2756,
+      "watchlist_lift": 4.8832,
+      "watchlist_recall": 0.4886,
+      "balanced_accuracy": 0.7066,
+      "precision": 0.2792,
+      "recall": 0.4886,
+      "roc_auc_low": 0.7619,
+      "watchlist_precision_low": 0.2051,
+      "roc_auc_high": 0.8641,
+      "watchlist_precision_high": 0.359
+    },
+    "Random forest": {
+      "roc_auc": 0.8261,
+      "avg_precision": 0.3846,
+      "watchlist_precision": 0.2821,
+      "watchlist_lift": 4.9968,
+      "watchlist_recall": 0.5,
+      "balanced_accuracy": 0.6869,
+      "precision": 0.4091,
+      "recall": 0.4091,
+      "roc_auc_low": 0.7737,
+      "watchlist_precision_low": 0.2115,
+      "roc_auc_high": 0.8712,
+      "watchlist_precision_high": 0.359
+    },
+    "Gradient boosting": {
+      "roc_auc": 0.8171,
+      "avg_precision": 0.3472,
+      "watchlist_precision": 0.2821,
+      "watchlist_lift": 4.9968,
+      "watchlist_recall": 0.5,
+      "balanced_accuracy": 0.6751,
+      "precision": 0.3333,
+      "recall": 0.3977,
+      "roc_auc_low": 0.7646,
+      "watchlist_precision_low": 0.2051,
+      "roc_auc_high": 0.8639,
+      "watchlist_precision_high": 0.359
+    }
+  },
+  "by_size": [
+    {
+      "size_band": "10–100 players",
+      "model": "Trend rule",
+      "games": 797,
+      "declines": 52,
+      "roc_auc": 0.6435,
+      "auc_low": 0.5244,
+      "auc_high": 0.7512,
+      "watchlist_precision": 0.275,
+      "base_rate": 0.0652
+    },
+    {
+      "size_band": "10–100 players",
+      "model": "Age rule",
+      "games": 797,
+      "declines": 52,
+      "roc_auc": 0.6506,
+      "auc_low": 0.5804,
+      "auc_high": 0.7146,
+      "watchlist_precision": 0.125,
+      "base_rate": 0.0652
+    },
+    {
+      "size_band": "10–100 players",
+      "model": "Random forest",
+      "games": 797,
+      "declines": 52,
+      "roc_auc": 0.8762,
+      "auc_low": 0.8271,
+      "auc_high": 0.9212,
+      "watchlist_precision": 0.3875,
+      "base_rate": 0.0652
+    },
+    {
+      "size_band": "100–1,000 players",
+      "model": "Trend rule",
+      "games": 592,
+      "declines": 25,
+      "roc_auc": 0.5176,
+      "auc_low": 0.3791,
+      "auc_high": 0.6673,
+      "watchlist_precision": 0.1167,
+      "base_rate": 0.0422
+    },
+    {
+      "size_band": "100–1,000 players",
+      "model": "Age rule",
+      "games": 592,
+      "declines": 25,
+      "roc_auc": 0.5476,
+      "auc_low": 0.4482,
+      "auc_high": 0.6493,
+      "watchlist_precision": 0.0333,
+      "base_rate": 0.0422
+    },
+    {
+      "size_band": "100–1,000 players",
+      "model": "Random forest",
+      "games": 592,
+      "declines": 25,
+      "roc_auc": 0.7477,
+      "auc_low": 0.6343,
+      "auc_high": 0.8437,
+      "watchlist_precision": 0.1667,
+      "base_rate": 0.0422
+    },
+    {
+      "size_band": "1,000+ players",
+      "model": "Trend rule",
+      "games": 170,
+      "declines": 11,
+      "roc_auc": 0.4694,
+      "auc_low": 0.204,
+      "auc_high": 0.7425,
+      "watchlist_precision": 0.1765,
+      "base_rate": 0.0647
+    },
+    {
+      "size_band": "1,000+ players",
+      "model": "Age rule",
+      "games": 170,
+      "declines": 11,
+      "roc_auc": 0.5738,
+      "auc_low": 0.3931,
+      "auc_high": 0.749,
+      "watchlist_precision": 0.1176,
+      "base_rate": 0.0647
+    },
+    {
+      "size_band": "1,000+ players",
+      "model": "Random forest",
+      "games": 170,
+      "declines": 11,
+      "roc_auc": 0.8022,
+      "auc_low": 0.6257,
+      "auc_high": 0.9372,
+      "watchlist_precision": 0.2941,
+      "base_rate": 0.0647
+    }
+  ],
+  "launch": {
+    "games": 141,
+    "declines": 72,
+    "kinds": {
+      "Released ≤45 days before tracking": 74,
+      "1.0 release during tracking": 67
+    },
+    "results": {
+      "Trend rule": {
+        "roc_auc": 0.7742,
+        "avg_precision": 0.7781,
+        "watchlist_precision": 0.9333,
+        "watchlist_lift": 1.8278,
+        "watchlist_recall": 0.1944,
+        "balanced_accuracy": 0.6606,
+        "precision": 0.6126,
+        "recall": 0.9444,
+        "auc_low": 0.69,
+        "auc_high": 0.8483
+      },
+      "Random forest": {
+        "roc_auc": 0.7866,
+        "avg_precision": 0.7705,
+        "watchlist_precision": 0.9333,
+        "watchlist_lift": 1.8278,
+        "watchlist_recall": 0.1944,
+        "balanced_accuracy": 0.6845,
+        "precision": 0.7872,
+        "recall": 0.5139,
+        "auc_low": 0.7036,
+        "auc_high": 0.8662
+      }
+    },
+    "decline_rate_by_score_third": {
+      "Lowest third of scores": 0.234,
+      "Middle third": 0.5106,
+      "Highest third of scores": 0.7872
+    }
+  },
+  "ablation": {
+    "Metadata only": {
+      "n_features": 42,
+      "cv_auc_mean": 0.8002,
+      "cv_auc_std": 0.0692,
+      "test_auc": 0.655,
+      "test_auc_low": 0.597,
+      "test_auc_high": 0.7194,
+      "test_watchlist_precision": 0.109
+    },
+    "Twitch only": {
+      "n_features": 7,
+      "cv_auc_mean": 0.6638,
+      "cv_auc_std": 0.0539,
+      "test_auc": 0.5868,
+      "test_auc_low": 0.5264,
+      "test_auc_high": 0.657,
+      "test_watchlist_precision": 0.1154
+    },
+    "Metadata + Twitch": {
+      "n_features": 49,
+      "cv_auc_mean": 0.8084,
+      "cv_auc_std": 0.0678,
+      "test_auc": 0.6779,
+      "test_auc_low": 0.6199,
+      "test_auc_high": 0.7368,
+      "test_watchlist_precision": 0.141
+    },
+    "Steam only": {
+      "n_features": 8,
+      "cv_auc_mean": 0.8631,
+      "cv_auc_std": 0.029,
+      "test_auc": 0.8239,
+      "test_auc_low": 0.7664,
+      "test_auc_high": 0.8679,
+      "test_watchlist_precision": 0.2949
+    },
+    "Metadata + Steam": {
+      "n_features": 50,
+      "cv_auc_mean": 0.8925,
+      "cv_auc_std": 0.0275,
+      "test_auc": 0.8267,
+      "test_auc_low": 0.773,
+      "test_auc_high": 0.8699,
+      "test_watchlist_precision": 0.2821
+    },
+    "Metadata + Steam + Twitch": {
+      "n_features": 57,
+      "cv_auc_mean": 0.8894,
+      "cv_auc_std": 0.0275,
+      "test_auc": 0.8261,
+      "test_auc_low": 0.7739,
+      "test_auc_high": 0.8706,
+      "test_watchlist_precision": 0.2821
+    }
+  },
+  "twitch_auc_change": [
+    -0.0006,
+    -0.009,
+    0.0077
+  ],
+  "group_importance": {
+    "Metadata": {
+      "auc_drop": 0.0292,
+      "std": 0.0118
+    },
+    "Steam activity": {
+      "auc_drop": 0.2457,
+      "std": 0.0181
+    },
+    "Twitch": {
+      "auc_drop": 0.0019,
+      "std": 0.0042
+    },
+    "Genres + tags": {
+      "auc_drop": 0.007,
+      "std": 0.0071
+    }
+  },
+  "top_features": {
+    "volatility": {
+      "auc_drop": 0.0353,
+      "std": 0.0049
+    },
+    "trend_log_per_30d": {
+      "auc_drop": 0.0129,
+      "std": 0.0069
+    },
+    "last_vs_first_month": {
+      "auc_drop": 0.0121,
+      "std": 0.0063
+    },
+    "age_years": {
+      "auc_drop": 0.011,
+      "std": 0.0019
+    },
+    "log_peak_to_mean": {
+      "auc_drop": 0.0084,
+      "std": 0.0052
+    },
+    "freetoplay": {
+      "auc_drop": 0.0047,
+      "std": 0.0033
+    },
+    "log_early_min": {
+      "auc_drop": 0.0039,
+      "std": 0.006
+    },
+    "tag_free_to_play": {
+      "auc_drop": 0.0025,
+      "std": 0.0015
+    },
+    "n_tags": {
+      "auc_drop": 0.0024,
+      "std": 0.0022
+    },
+    "tag_co_op": {
+      "auc_drop": 0.0018,
+      "std": 0.0011
+    }
+  },
+  "sensitivity": {
+    "lost ≥ 25%": {
+      "test_rate": 0.1924,
+      "test_events": 300,
+      "trend_rule_auc": 0.5102,
+      "model_auc": 0.7475,
+      "trend_rule_watchlist_precision": 0.4295,
+      "model_watchlist_precision": 0.5256
+    },
+    "lost ≥ 50%": {
+      "test_rate": 0.0564,
+      "test_events": 88,
+      "trend_rule_auc": 0.5856,
+      "model_auc": 0.8261,
+      "trend_rule_watchlist_precision": 0.2179,
+      "model_watchlist_precision": 0.2821
+    },
+    "lost ≥ 75%": {
+      "test_rate": 0.0154,
+      "test_events": 24,
+      "trend_rule_auc": 0.7618,
+      "model_auc": 0.9581,
+      "trend_rule_watchlist_precision": 0.0962,
+      "model_watchlist_precision": 0.1218
+    }
+  },
+  "covid_test": {
+    "games": 1528,
+    "declines": 39,
+    "results": {
+      "Trend rule": {
+        "roc_auc": 0.5616,
+        "avg_precision": 0.1368,
+        "watchlist_precision": 0.0719,
+        "watchlist_lift": 2.8168,
+        "watchlist_recall": 0.2821,
+        "balanced_accuracy": 0.5558,
+        "precision": 0.034,
+        "recall": 0.4359,
+        "auc_low": 0.4436,
+        "auc_high": 0.6765
+      },
+      "Age rule": {
+        "roc_auc": 0.6403,
+        "avg_precision": 0.0362,
+        "watchlist_precision": 0.0327,
+        "watchlist_lift": 1.2804,
+        "watchlist_recall": 0.1282,
+        "balanced_accuracy": 0.4923,
+        "precision": 0.0,
+        "recall": 0.0,
+        "auc_low": 0.5661,
+        "auc_high": 0.7036
+      },
+      "Random forest": {
+        "roc_auc": 0.8256,
+        "avg_precision": 0.3725,
+        "watchlist_precision": 0.1503,
+        "watchlist_lift": 5.8897,
+        "watchlist_recall": 0.5897,
+        "balanced_accuracy": 0.7069,
+        "precision": 0.34,
+        "recall": 0.4359,
+        "auc_low": 0.7484,
+        "auc_high": 0.8961
+      }
+    }
+  },
+  "regression": {
+    "No change (persistence)": {
+      "MAE_log": 0.2744,
+      "median_abs_error_pct_points": 16.5118,
+      "rank_corr_with_actual_change": null
+    },
+    "Trend extrapolation": {
+      "MAE_log": 0.8938,
+      "median_abs_error_pct_points": 46.8732,
+      "rank_corr_with_actual_change": 0.0142
+    },
+    "Random forest": {
+      "MAE_log": 0.2949,
+      "median_abs_error_pct_points": 17.6756,
+      "rank_corr_with_actual_change": 0.3387
+    }
+  },
+  "tiers_backtest": {
+    "Watch list (top 10%)": {
+      "games": 155,
+      "lost_half": 44,
+      "share_lost_half": 0.2839,
+      "median_change": 0.6564,
+      "median_players_now": 48.366,
+      "share_of_all_declines": 0.5,
+      "trend_rule_share_lost_half": 0.2194
+    },
+    "Monitor (next 20%)": {
+      "games": 312,
+      "lost_half": 26,
+      "share_lost_half": 0.0833,
+      "median_change": 0.9049,
+      "median_players_now": 55.2842,
+      "share_of_all_declines": 0.2955,
+      "trend_rule_share_lost_half": 0.0321
+    },
+    "Stable (other 70%)": {
+      "games": 1092,
+      "lost_half": 18,
+      "share_lost_half": 0.0165,
+      "median_change": 0.9753,
+      "median_players_now": 125.3341,
+      "share_of_all_declines": 0.2045,
+      "trend_rule_share_lost_half": 0.0403
+    }
+  },
+  "big_games": {
+    "games": 170,
+    "declines": 11,
+    "on_watchlist": 5,
+    "on_watchlist_declined": 3
+  },
+  "forecast_games": 1554
+}

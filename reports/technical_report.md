@@ -1,30 +1,49 @@
-# Will this game still have players next year? Predicting Steam player retention
+# Which live games will lose half their players? Early decline warning for Steam games
 
 ## Summary
 
-We predict whether a Steam game will still average **at least 10 concurrent players 6–12 months from now**, using 90 days of Steam player counts, Twitch attention and store metadata. The data covers 1,851 games tracked every five minutes from 14 Dec 2017 to 12 Aug 2020.
+We rank live Steam games by their risk of a **major decline**: average concurrent players in months 6–12 falling to **less than half** of today's level. The ranking uses 90 days of Steam player counts, Twitch attention and store metadata. The data covers 1,851 games tracked every five minutes from 14 Dec 2017 to 12 Aug 2020. A game counts as live if it averages at least 10 players.
 
-We trained on Dec 2017 data and tested out-of-time on Feb 2019 → Jan 2020 outcomes. In that test, a random forest reaches ROC-AUC 0.982 and balanced accuracy 0.957, and catches 94% of the games that were lost. An honest baseline does almost as well on ranking: the rule "at risk if fewer than 10 players today" also reaches ROC-AUC 0.982, with balanced accuracy 0.927 and 87% recall. The model's added value is concentrated in three places:
+We trained on Dec 2017 data and tested out-of-time on games starting Feb 2019 (outcome Aug 2019 – Jan 2020; 88 of 1,559 live games, 5.6%, lost half).
 
-1. **Flagging:** more lost games caught (94% vs 87%) at a precision of 87%.
-2. **Borderline games** (5–50 players): ROC-AUC 0.961 vs 0.931; lost games caught 84% vs 58%.
-3. **Stability across market periods:** the model keeps a balanced accuracy of 0.95–0.96, while the fixed rule ranges from 0.69 (2018) to 0.93 (2019).
+- **Ranking:** the random forest reaches **ROC-AUC 0.826** (95% CI 0.774–0.871). Simple rules are near chance: extending the 90-day trend gives 0.586, game age gives 0.611.
+- **Watch list:** the riskiest **10%** of the catalogue contained **half of all collapses**. 28% of the games on it lost half, **5× the base rate**.
+- **Big games:** AUC 0.80 for games with 1,000+ players, where both rules are at chance. The 2019 watch list included *Tom Clancy's The Division* (4,098 players, kept 16%) and *H1Z1* (2,384 players, kept 30%).
+- **Launch-stage games** (141 launches): the model ranks well (AUC 0.787), but no better than the trend rule (0.774). This is the main open problem.
+- **Different market periods:** the ranking held in the 2020 lockdown period (AUC 0.826, watch list 5.9× the base rate), even though the share of declining games swung from 20% to 3% between periods.
+- **Twitch** adds nothing once Steam activity is known (−0.0006 AUC).
 
-Twitch viewership predicts retention on its own (AUC 0.966), but adds nothing once Steam data is known (+0.0002 AUC, 95% CI −0.0012 to +0.0023). The deliverable is a risk-tier table. In the backtest, 87% of "high risk" games were lost, against 0.4% of "low risk" games.
+A secondary **end-of-life model** (will a game stay above 10 players?) is reported in Section 7. It is accurate (AUC 0.98), but mostly restates today's player count.
 
-All numbers below come from `reports/metrics.json`, which `src/retention-analysis.ipynb` writes.
+Numbers come from `reports/decline_metrics.json` (`src/decline-analysis.ipynb`) and `reports/metrics.json` (`src/retention-analysis.ipynb`).
 
-## 1. Problem and target users
+## 1. Problem, users and value
 
-Publishers, portfolio managers and live-ops teams fund updates, community management, marketing and servers for many live games at once. Most games fade gradually, and a decision to reinvest or wind down is easier to make before the fade is obvious. We provide an early, quantified risk flag per game.
+Publishers and live-ops teams fund updates, community management, marketing, servers and sales for many live games at once. Their question each quarter is **which games are about to lose a large part of their audience**, while there is still time to act or to stop spending.
 
-**Research question.** Given 90 days of Steam activity, Twitch attention and metadata, can we predict whether a game's mean concurrent players in days 180–365 after that window starts will be ≥ 10?
+For a game with 5,000 players, falling to 800 is a serious business problem. A fixed floor like "10 players" would never flag it.
+
+**What the product does.** Every quarter it ranks the whole catalogue by decline risk:
+
+| Tier | Share of the catalogue | Lost half in the backtest | Share of all collapses | Suggested use |
+| --- | ---: | ---: | ---: | --- |
+| Watch list | 10% | 28% | 50% | Review now: plan an update, sale or event, or stop spending |
+| Monitor | 20% | 8% | 30% | Check monthly |
+| Stable | 70% | 1.6% | 20% | No action |
+
+**Value.** A team that reviews only the 10% watch list sees half of next year's collapses, about 5× more often than picking games at random. Watch list plus monitor (30% of the catalogue) covers 80% of collapses. The ranking is built from public data (Steam player counts), so it also works for third parties:
+
+- storefronts and subscription services deciding what to feature or renew;
+- investors and acquirers judging a studio's back catalogue;
+- competitors tracking a market segment.
+
+**Research question.** Given 90 days of Steam activity, Twitch attention and metadata, can we predict whether a live game's mean players in days 180–365 will fall below half of its mean in the 90-day window?
 
 **Hypotheses.**
 
-- H1: recent Steam activity predicts later retention.
+- H1: recent Steam activity predicts a later major decline.
 - H2: Twitch attention adds predictive value beyond Steam activity.
-- H3: retention differs by business model and genre.
+- H3: decline rates differ by game age, business model and genre.
 
 The analysis is predictive and associative. It makes no causal claims.
 
@@ -48,169 +67,215 @@ The analysis is predictive and associative. It makes no causal claims.
    - Every Twitch link is scored by name similarity, and links under 0.6 were reviewed by hand.
    - 6 wrong links were removed (e.g. *Monaco* → *Monaco Pinball*, *Insurgency* → the 2007 mod, an umbrella "Jackbox Party Packs" category).
    - 13 games with split Twitch categories were merged, so no game is double-counted.
-4. **Selection.** Only `type == "game"` is kept (1,851 apps). Demos, mods, DLC, test servers and adverts are dropped.
-5. **Feature engineering** (`retention-analysis.ipynb`, Section 2). Features are computed for any *origin date* t:
+4. **Selection.** Only `type == "game"` is kept (1,851 apps); demos, mods, DLC, test servers and adverts are dropped. For the decline model, a game must average ≥ 10 players in the feature window.
+5. **Feature engineering** (`decline-analysis.ipynb`, Section 1). Features are computed for an *origin date* t: either one shared date, or each game's own launch for the launch-stage check.
    - **Steam (8):** log mean players, worst day, share of near-empty days, peak-to-mean, volatility, trend, last-vs-first month, weekend uplift.
    - **Twitch (7):** viewers, peak viewers, watch time, channels, months in the top 2,000, viewers per player, "has a Twitch category" flag.
    - **Metadata (42):** age, Early Access, free-to-play, one 0/1 column per genre, top-20 tags, counts of languages, packages and developers, publisher catalogue size.
-   - **Target:** mean players over t+180 … t+365, with at least 150 observed days. The 90 days between the feature and target windows prevent leakage.
-6. **Analysis and modelling.** EDA, five-fold cross-validation grouped by publisher, an out-of-time backtest, ablation, permutation importance, threshold and period robustness, and regression.
-7. **Communication.** Figures in `reports/figures/`, risk tables as CSV, this report and the pitch slides.
+   - **Target:** mean players over t+180 … t+365 (≥ 150 observed days) divided by the mean over t … t+89. "Major decline" = ratio < 0.5. The 90 days between the windows prevent leakage.
+6. **Analysis and modelling.** EDA, five-fold cross-validation grouped by publisher, an out-of-time backtest, size-band and launch-stage evaluation, ablation, permutation importance, robustness checks and regression.
+7. **Communication.** Figures in `reports/figures/decline/`, watch lists as CSV, this report and the pitch slides.
 
 ## 4. Method
 
-**Origins.**
-
-| Role | Origin | Target window | Games | Retained |
+| Role | Origin | Outcome window | Live games | Lost half |
 | --- | --- | --- | ---: | ---: |
-| Train | 14 Dec 2017 | Jun – Dec 2018 | 1,850 | 87.4% |
-| Train (2nd, for the 2020 check) | 14 Jun 2018 | Dec 2018 – Jun 2019 | 1,850 | 85.2% |
-| Test | 1 Feb 2019 | Jul 2019 – Jan 2020 | 1,851 | 83.4% |
-| Test, lockdown period | 1 Aug 2019 | Jan – Jul 2020 | 1,851 | 86.2% |
+| Train | 14 Dec 2017 | Jun – Dec 2018 | 1,758 | 19.7% |
+| Train (2nd, for the 2020 check) | 14 Jun 2018 | Dec 2018 – Jun 2019 | 1,627 | 10.7% |
+| Test | 1 Feb 2019 | Jul 2019 – Jan 2020 | 1,559 | 5.6% |
+| Test, lockdown period | 1 Aug 2019 | Jan – Jul 2020 | 1,528 | 2.6% |
 
 Each test uses only training rows whose outcomes were known before the test origin.
 
-**Candidates.**
+**Baselines.**
 
-- Always retained.
-- Rule "≥ 10 players today".
-- The same rule with its cut-off tuned on training data.
-- Logistic regression, random forest and histogram gradient boosting, all with balanced class weights.
+- *No change* (persistence): predicts no decline for anyone.
+- *Trend rule*: extends the 90-day trend 7.5 months ahead and flags games that would lose half, i.e. falling ≥ 9% a month.
+- *Age rule*: flags games under one year old.
 
-The final model (random forest) was **chosen by grouped CV** (AUC 0.991), not on the test set.
+**Models.** Logistic regression, random forest and histogram gradient boosting, all with balanced class weights. The random forest was **chosen by grouped CV** (AUC 0.889), not on the test set.
 
-**Metrics.** About 13–17% of games are lost, so we report ROC-AUC, balanced accuracy, precision and recall of the at-risk class, and 1,000-sample bootstrap 95% intervals on the test set.
+**Metrics** (for the decline class): ROC-AUC; precision, lift and recall of the top-10% watch list; balanced accuracy at each method's own cut-off; 1,000-sample bootstrap 95% intervals.
+
+**Why we rank instead of threshold.** The share of games that lost half fell from 19.7% to 2.6% across periods, because the whole market moved:
+
+- after the 2017 boom, many games declined;
+- in 2019 the market was calmer;
+- in 2020 the lockdowns lifted almost every game.
+
+Probabilities learned in one period are therefore miscalibrated in the next (`fig04`), while the ranking transfers. The product is a ranked watch list.
 
 ## 5. Results
 
 ### 5.1 Exploration
 
-![Early vs future players](figures/fig01_early_vs_future.png)
+![Change distribution](figures/decline/fig01_change_distribution.png)
 
-Players today and players a year later are almost the same ranking (Spearman ρ ≈ 0.95), so persistence is the natural baseline.
+![Who declines](figures/decline/fig02_decline_by_group.png)
 
-![Retention by group](figures/fig02_retention_by_group.png)
+Decline rates on the Dec 2017 start, with 95% Wilson intervals:
 
-| Group | Games | Retained (95% CI) |
+| Group | Games | Lost half |
 | --- | ---: | --- |
-| Free to play | 339 | 96.2% (93.6–97.7) |
-| Paid | 1,502 | 85.5% (83.6–87.2) |
-| Casual (genre) | 302 | 68.2% (62.8–73.2) |
-| Indie (genre) | 819 | 78.4% (75.4–81.1) |
-| RPG (genre) | 461 | 95.0% (92.6–96.7) |
-| Twitch > 100 avg viewers | 165 | 100% (97.7–100) |
-| Not in Twitch top 2,000 | 991 | 78.5% (75.8–81.0) |
+| 10–100 players | 800 | 28.6% (25.6–31.9) |
+| 1,000+ players | 220 | 11.4% (7.8–16.2) |
+| Under 6 months old | 306 | 33.7% (28.6–39.1) |
+| Over 5 years old | 344 | 4.9% (3.1–7.8) |
+| Falling fast | 799 | 28.2% (25.2–31.4) |
+| Growing | 328 | 22.6% (18.4–27.4) |
+| Flat | 177 | 7.3% (4.3–12.2) |
+| Free to play / paid | 339 / 1,412 | 19.5% / 19.6% |
+| Casual (genre) | 266 | 35.3% (29.8–41.3) |
+| Racing (genre) | 61 | 9.8% (4.6–19.8) |
 
-![Young vs mature decay](figures/fig08_young_vs_mature_decay.png)
+Two points matter for the model:
 
-Games released at most 45 days before tracking began lost a median of about 80% of their players within five months. Games on sale for 2+ years drift slowly, with spikes at the summer and winter sales.
+- **Growing games decline almost as often as falling ones.** Spikes from sales, updates or giveaways fade, so extending the trend does not work.
+- **Free-to-play makes no difference** to relative decline.
 
-### 5.2 Models vs baselines
+### 5.2 Models vs baselines (H1)
 
-![Model comparison](figures/fig03_model_comparison.png)
+![Model comparison](figures/decline/fig03_model_comparison.png)
 
-| Out-of-time test (1,851 games, 16.6% lost) | ROC-AUC (95% CI) | Balanced acc. | At-risk precision | At-risk recall |
-| --- | --- | ---: | ---: | ---: |
-| Always retained | 0.500 | 0.500 | – | 0.0% |
-| Rule: ≥ 10 players | 0.982 (0.973–0.989) | 0.927 | 91.4% | 87.0% |
-| Rule: tuned cut-off (32 players) | 0.982 (0.973–0.989) | 0.908 | 54.2% | 98.1% |
-| Logistic regression | 0.979 | 0.942 | 81.6% | 92.5% |
-| **Random forest** | **0.982 (0.975–0.988)** | **0.957** | **87.1%** | **94.1%** |
-| Gradient boosting | 0.983 | 0.961 | 84.0% | 95.8% |
+| Out-of-time test (1,559 live games, 88 lost half) | ROC-AUC (95% CI) | Watch-list precision (95% CI) | Lift | Share of collapses on the watch list |
+| --- | --- | --- | ---: | ---: |
+| No change | 0.500 | 5.6% | 1.0× | 10% |
+| Trend rule | 0.586 (0.495–0.674) | 21.8% (14.7–28.2) | 3.9× | 39% |
+| Age rule | 0.611 (0.559–0.665) | 7.7% | 1.4× | 14% |
+| Logistic regression | 0.819 | 27.6% | 4.9× | 49% |
+| **Random forest** | **0.826 (0.774–0.871)** | **28.2% (21.2–35.9)** | **5.0×** | **50%** |
+| Gradient boosting | 0.817 | 28.2% | 5.0× | 50% |
 
-Borderline games (537 games with 5–50 players, 85 of them lost):
+In grouped CV on the 2018 period, the random forest reached AUC 0.889, against 0.652 for the trend rule and 0.693 for the age rule.
 
-| Model | ROC-AUC (95% CI) | Balanced acc. | Lost games caught |
+![ROC and calibration](figures/decline/fig04_roc_calibration.png)
+
+### 5.3 Big games
+
+![By size](figures/decline/fig05_by_size.png)
+
+| Size now | Games | Lost half | Trend rule AUC | Random forest AUC (95% CI) |
+| --- | ---: | ---: | ---: | --- |
+| 10–100 players | 797 | 52 | 0.643 | 0.876 (0.827–0.921) |
+| 100–1,000 players | 592 | 25 | 0.518 | 0.748 (0.634–0.844) |
+| 1,000+ players | 170 | 11 | 0.469 | 0.802 (0.626–0.937) |
+
+Five big games made the 2019 watch list, and three of them lost half:
+
+| Game | Players then | Kept |
+| --- | ---: | ---: |
+| *Tom Clancy's The Division* | 4,098 | 16% |
+| *H1Z1* | 2,384 | 30% |
+| *ASTRONEER* | 3,898 | 48% |
+| *Subnautica* | 4,004 | 56% (not a "decline", but still a large drop) |
+| *Minion Masters* | 1,000 | grew |
+
+![Examples](figures/decline/fig09_examples.png)
+
+### 5.4 Launch-stage games
+
+![Launch stage](figures/decline/fig06_launch_stage.png)
+
+The launch cohort has 141 games with ≥ 10 players:
+
+- 74 released at most 45 days before tracking began;
+- 67 Early Access games whose 1.0 release happened during tracking.
+
+Each game's own launch is its origin, so the 90-day window is the launch period. The model is trained on the Dec 2017 catalogue with these games excluded. 51% of launches lost half.
+
+| Launch cohort | ROC-AUC (95% CI) | Precision when flagging | Recall |
 | --- | --- | ---: | ---: |
-| Rule: ≥ 10 players | 0.931 (0.900–0.959) | 0.783 | 57.6% |
-| Random forest | 0.961 (0.940–0.976) | 0.894 | 83.5% |
+| Trend rule | 0.774 (0.690–0.848) | 61% | 94% |
+| Random forest | 0.787 (0.704–0.866) | 79% | 51% |
 
-In grouped CV on the 2018 period, the "≥ 10 players" rule reached a balanced accuracy of only **0.691**, against 0.957 for the random forest. Many games that faded during 2018 still had 10+ players in early 2018. Its 0.927 on the 2019 test therefore reflects a calmer period, not a reliable rule. A cut-off tuned on 2018 data (32 players) transfers badly to 2019 (0.908).
+The model's top third of launches lost half 79% of the time, its bottom third 23%. On ranking it is **on par with the trend rule**: right after launch, the decline is already visible in the first 90 days. A model trained on launches (only 141 here) is the clearest next step.
 
-![ROC, calibration and confusion matrix](figures/fig04_roc_calibration_confusion.png)
+### 5.5 Does Twitch add anything? (H2) And what does the model use?
 
-### 5.3 Does Twitch add anything? (H2)
-
-![Ablation](figures/fig05_ablation.png)
+![Ablation and importance](figures/decline/fig07_ablation_importance.png)
 
 | Feature set (random forest) | CV AUC | Test AUC (95% CI) |
 | --- | ---: | --- |
-| Metadata only | 0.948 | 0.919 (0.897–0.938) |
-| Twitch only | 0.946 | 0.966 (0.955–0.975) |
-| Metadata + Twitch | 0.980 | 0.973 (0.964–0.981) |
-| Steam only | 0.988 | 0.982 (0.975–0.988) |
-| Metadata + Steam | 0.990 | 0.982 (0.973–0.988) |
-| All | 0.991 | 0.982 (0.975–0.988) |
+| Metadata only | 0.800 | 0.655 (0.597–0.719) |
+| Twitch only | 0.664 | 0.587 (0.526–0.657) |
+| Metadata + Twitch | 0.808 | 0.678 (0.620–0.737) |
+| Steam only | 0.863 | 0.824 (0.766–0.868) |
+| Metadata + Steam | 0.892 | 0.827 (0.773–0.870) |
+| All | 0.889 | 0.826 (0.774–0.871) |
 
-A paired bootstrap of adding Twitch to Metadata + Steam gives +0.0002 AUC (95% CI −0.0012 to +0.0023).
+- **Adding Twitch** to Metadata + Steam changes test AUC by −0.0006 (95% CI −0.009 to +0.008).
+- **Shuffling the Steam-activity group** costs 0.246 AUC. Metadata costs 0.029, genres and tags 0.007, Twitch 0.002.
+- **Top single features:** volatility, trend, last-vs-first month, game age and peak-to-mean. Spiky, falling and young games are most at risk.
 
-### 5.4 What the model relies on
+### 5.6 Robustness
 
-![Importance](figures/fig06_importance.png)
+| Check | Trend rule AUC | Random forest AUC |
+| --- | ---: | ---: |
+| Decline = lost ≥ 25% (300 events) | 0.510 | 0.747 |
+| Decline = lost ≥ 50% (88 events) | 0.586 | 0.826 |
+| Decline = lost ≥ 75% (24 events) | 0.762 | 0.958 |
+| 2020 lockdown period (39 events, 2.6%) | 0.562 | 0.826 (0.748–0.896) |
 
-The importance test shuffles a whole group of features at once and measures the drop in test AUC:
+In the lockdown period, the watch list caught 59% of collapses at 5.9× the base rate.
 
-- Steam activity: 0.219.
-- Every other group: < 0.002.
+### 5.7 How large will the change be? (regression)
 
-Among single features, the **worst day** in the window matters most, ahead of the 90-day mean and the share of near-empty days.
+| Test set | MAE (log ratio) | Rank correlation with actual change |
+| --- | ---: | ---: |
+| No change | 0.274 | – |
+| Trend extrapolation | 0.894 | 0.01 |
+| Random forest | 0.295 | 0.34 |
 
-### 5.5 Robustness
+Predicting the exact size of the change does not beat "no change". The model's value is in **ranking who is at risk**, not in a precise audience forecast.
 
-- **Threshold** (`fig07`): for cut-offs of 1, 5, 10, 25, 50 and 100 players, AUC stays at 0.97–0.99 and the model's balanced accuracy at 0.93–0.96.
-- **2020 lockdown period** (Aug 2019 origin, 13.8% lost):
-  - Random forest: AUC 0.969, balanced accuracy 0.948.
-  - Rule: AUC 0.967, balanced accuracy 0.935.
-  - At-risk precision fell to 64%, because some games the model expected to fade were rescued by the lockdown surge.
-- **Young games** (77 games, 12 lost; out-of-fold CV scores): random forest AUC 0.889 vs rule 0.896. The model does **not** beat the rule on launch-stage games.
+### 5.8 Deliverable
 
-### 5.6 Regression: how many players?
+![Watch-list backtest](figures/decline/fig08_watchlist_backtest.png)
 
-| Test set | MAE (log) | Median abs. % error | Within ±25% |
-| --- | ---: | ---: | ---: |
-| Persistence (next year = today) | 0.314 | 20.8% | 56.0% |
-| Linear regression | 0.337 | 22.7% | 53.8% |
-| Random forest | 0.321 | 21.7% | 55.7% |
+| Tier (by rank) | Games | Lost half | Share lost | Share of all collapses | Same tiers from the trend rule |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Watch list (top 10%) | 155 | 44 | 28.4% | 50.0% | 21.9% |
+| Monitor (next 20%) | 312 | 26 | 8.3% | 29.5% | 3.2% |
+| Stable (other 70%) | 1,092 | 18 | 1.6% | 20.5% | 4.0% |
 
-Machine learning does not beat persistence for audience size. The old R² of 0.95 was computed on raw counts, where a few very large games dominate the score.
+Files:
 
-### 5.7 Deliverable: risk tiers
-
-![Risk tiers](figures/fig09_risk_tiers_backtest.png)
-
-| Tier (score) | Games | Lost | Share lost | Share of all lost games |
-| --- | ---: | ---: | ---: | ---: |
-| High risk (< 0.5) | 332 | 289 | 87.0% | 94.1% |
-| Medium risk (0.5–0.8) | 114 | 12 | 10.5% | 3.9% |
-| Low risk (≥ 0.8) | 1,405 | 6 | 0.4% | 2.0% |
-
-![Example trajectories](figures/fig10_example_trajectories.png)
-
-`risk_table_backtest_2019.csv` lists every test game with its score, tier and actual outcome. `risk_forecast_2020-08.csv` holds the deployable version: it was trained on all four labelled origins and scored on 15 May – 12 Aug 2020, giving 349 high-, 62 medium- and 1,440 low-risk games. Its outcomes fall after the data ends, so it is unverified.
+- `decline_watchlist_backtest_2019.csv`: every test game with its score, tier and actual outcome.
+- `decline_watchlist_forecast_2020-08.csv`: the deployable version. It was trained on all four labelled starts and scored on 15 May – 12 Aug 2020 (1,554 live games). Its outcomes fall after the data ends, so it is unverified, and its scoring window is inflated by the lockdown.
 
 ## 6. Conclusions
 
-- **H1 supported.** Recent Steam activity carries nearly all the signal, with the player floor first.
-- **H2 not supported.** Twitch is a good proxy when Steam data is missing, and redundant when it is present.
-- **H3 supported descriptively.** Free-to-play, RPG and Strategy games retain more often, and Casual and Indie games less, but these features add < 0.005 AUC once player counts are known.
+- **H1 supported.** Recent Steam activity predicts a major decline. The signal is in stability, trend and the game's age, not in the player level. ML beats simple rules by a wide margin (AUC 0.83 vs ≤ 0.61).
+- **H2 not supported.** Twitch adds nothing beyond Steam activity, and on its own it is weak for this question (AUC 0.59).
+- **H3 partly supported.** Young, Casual and Indie games decline more often; business model makes no difference.
+- **Product.** A quarterly ranked watch list. It works for games of every size and survives market swings. On launch-stage games it is not yet better than watching the trend.
 
-**Practical use.** A publisher can triage a catalogue automatically. High- and low-risk tiers are reliable enough to act on, and the 6% of games in the medium tier form a short list for human review. Beyond the original use case, the same setup could serve:
+## 7. Secondary model: end of life (stays above 10 players)
 
-- platform holders or storefronts (which titles to feature or support);
-- investors in game studios (back-catalogue health);
-- server and hosting planning for multiplayer games.
+`retention-analysis.ipynb` answers a narrower question: will a game keep at least 10 average players in months 6–12? The test set is 1,851 games, 16.6% of which fell below 10.
 
-## 7. Limitations
+| Out-of-time test | Rule: ≥ 10 players today | Random forest |
+| --- | ---: | ---: |
+| ROC-AUC | 0.982 | 0.982 |
+| Balanced accuracy | 0.927 | 0.957 |
+| Lost games caught | 87% | 94% |
+| AUC on 537 borderline games (5–50 players) | 0.931 | 0.961 |
+| Balanced accuracy, 2018 period (CV) | 0.691 | 0.957 |
 
-- **Not a launch-day predictor.** The data starts when most games were already on sale, and on the 77 young games the model does not beat the simple rule.
+Today's player count already answers this question. The games flagged "high risk" had a median of 2 players, and big games can never be flagged. The model only adds value for borderline games and in stability across periods. We keep it for end-of-life decisions, such as closing servers or ending support, and use the decline watch list as the main product. Figures for this model are in `reports/figures/` (top level).
+
+## 8. Limitations
+
+- **Launch stage.** On 141 launches the model is only on par with the trend rule. Dedicated launch data is needed.
 - **Selection.** The dataset does not document how its 2,000 apps were chosen. Its list starts with the most-played games, so it may lean towards popular titles.
-- **One market history.** We test on two later periods (2019, 2020), but both come from one data source and one platform.
-- **Threshold.** 10 players is an operational choice, not derived from revenue; the results hold from 1 to 100 players.
-- **Twitch coverage.** Only the top 2,000 categories per month are available, so smaller games show zero. The original script that produced the candidate mapping is not in the repository.
-- **Associations only.** A high-risk score says where to look, not what will help.
-- **Dependencies between games.** Publisher grouping in CV limits leakage between sibling titles, but the test set reuses the same games at a later time, by design of the monitoring use case.
+- **One market history.** Tests cover two later periods (2019, 2020) from one platform and one data source. Base rates shift strongly between periods, so the probabilities must be recalibrated, or only the ranking used.
+- **Small big-game sample.** Only 11 of the 170 big games declined in the test, so their AUC interval is wide (0.63–0.94).
+- **Threshold choice.** "Half" is a business choice, though results hold for 25%, 50% and 75% losses. "Live" (≥ 10 players) is also a choice.
+- **Twitch coverage.** Only the top 2,000 categories a month are available. The script that produced the candidate mapping is not in the repository.
+- **Associations only.** A watch-list flag says where to look, not what will help.
+- **Dependencies between games.** Publisher grouping in CV limits leakage between sibling titles, but the test set reuses the same games at a later time, as in real monitoring.
 
-## 8. What we changed after review
+## 9. What we changed after review
 
 The first version reported ROC-AUC 0.958 against an "always retained" baseline. A review found five problems:
 
@@ -220,15 +285,15 @@ The first version reported ROC-AUC 0.958 against an "always retained" baseline. 
 4. **Unchecked Twitch mapping.** It contained wrong and duplicated links.
 5. **Selection on the test set**, with no intervals and no realistic baseline.
 
-All five are fixed as described above. The headline numbers are now lower in places but defensible.
+All five are fixed. A second review asked what problem the 10-player target really solves: its "high risk" games already had about 2 players. This led to the relative-decline product, which works for games of every size and beats simple rules by a wide margin.
 
-## 9. Learning outcomes
+## 10. Learning outcomes
 
 *(Draft: each team member should adjust this section.)*
 
-- A strong model score means little without a strong baseline. Here, "players today" explains most of "players next year".
-- The validation design must match the deployment question. A split by first observation date is not a time split, and an out-of-time backtest is.
+- **The target defines the product.** An accurate model of an obvious question ("will a 2-player game stay small?") has little value. Reframing the target to relative decline made the model useful.
+- A strong model score means little without a strong baseline. "Players today" explains most of "players next year", but not *how* a game will change.
+- The validation design must match the deployment question. A split by first observation date is not a time split, and an out-of-time backtest is. Market-wide shifts mean rankings transfer and probabilities do not.
 - Check the meaning of every derived column. An alphabetical genre list silently produced a fake "primary genre".
 - Joined data needs its own validation: fuzzy and URL matching produced wrong and duplicated links.
-- Report uncertainty, and pick the model without looking at the test set.
-- Communicate where a model adds value (borderline cases, stability) and where it does not (launch-stage games, audience size).
+- Report uncertainty, pick the model without looking at the test set, and say where the model does *not* help (launch stage, audience size).
