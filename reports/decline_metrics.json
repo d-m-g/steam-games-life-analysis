@@ -6,45 +6,139 @@
       365
     ],
     "min_players": 10,
-    "decline_ratio": 0.5,
+    "decline_ratio_vs_market": 0.5,
     "watchlist_share": 0.1,
-    "trend_rule_cutoff": -0.0926,
-    "origins": {
-      "train": "2017-12-14",
-      "train_2": "2018-06-14",
-      "test": "2019-02-01",
-      "test_covid": "2019-08-01"
-    },
+    "headline_test": "2019-02-01",
+    "training_starts_headline": 3,
+    "training_rows_headline": 5169,
     "best_model": "Random forest"
   },
-  "overview": {
-    "train": {
-      "origin": 1513209600000,
+  "starts": {
+    "2017-12-14": {
       "live_games": 1758,
-      "decline_rate": 0.1974,
-      "median_change": 0.7423,
-      "lost_25pct_or_more": 0.5114
+      "market_change": 0.7454,
+      "absolute_rate": 0.1974,
+      "relative_rate": 0.1115
     },
-    "train_2": {
-      "origin": 1528934400000,
-      "live_games": 1627,
-      "decline_rate": 0.1069,
-      "median_change": 0.8664,
-      "lost_25pct_or_more": 0.3313
+    "2018-01-01": {
+      "live_games": 1722,
+      "market_change": 0.7943,
+      "absolute_rate": 0.1551,
+      "relative_rate": 0.0958
     },
-    "test": {
-      "origin": 1548979200000,
+    "2018-02-01": {
+      "live_games": 1689,
+      "market_change": 0.8496,
+      "absolute_rate": 0.135,
+      "relative_rate": 0.0906
+    },
+    "2018-03-01": {
+      "live_games": 1666,
+      "market_change": 0.8983,
+      "absolute_rate": 0.1128,
+      "relative_rate": 0.0894
+    },
+    "2018-04-01": {
+      "live_games": 1637,
+      "market_change": 0.9171,
+      "absolute_rate": 0.1038,
+      "relative_rate": 0.0837
+    },
+    "2018-05-01": {
+      "live_games": 1621,
+      "market_change": 0.8791,
+      "absolute_rate": 0.1061,
+      "relative_rate": 0.0734
+    },
+    "2018-06-01": {
+      "live_games": 1623,
+      "market_change": 0.8695,
+      "absolute_rate": 0.1078,
+      "relative_rate": 0.0783
+    },
+    "2018-07-01": {
+      "live_games": 1622,
+      "market_change": 0.9061,
+      "absolute_rate": 0.0956,
+      "relative_rate": 0.0709
+    },
+    "2018-08-01": {
+      "live_games": 1610,
+      "market_change": 0.9633,
+      "absolute_rate": 0.0758,
+      "relative_rate": 0.064
+    },
+    "2018-09-01": {
+      "live_games": 1596,
+      "market_change": 0.9531,
+      "absolute_rate": 0.0595,
+      "relative_rate": 0.0526
+    },
+    "2018-10-01": {
+      "live_games": 1599,
+      "market_change": 0.9023,
+      "absolute_rate": 0.0675,
+      "relative_rate": 0.0525
+    },
+    "2018-11-01": {
+      "live_games": 1597,
+      "market_change": 0.8294,
+      "absolute_rate": 0.0745,
+      "relative_rate": 0.0495
+    },
+    "2018-12-01": {
+      "live_games": 1589,
+      "market_change": 0.8354,
+      "absolute_rate": 0.0824,
+      "relative_rate": 0.0441
+    },
+    "2019-01-01": {
+      "live_games": 1586,
+      "market_change": 0.8888,
+      "absolute_rate": 0.0637,
+      "relative_rate": 0.0454
+    },
+    "2019-02-01": {
       "live_games": 1559,
-      "decline_rate": 0.0564,
-      "median_change": 0.9465,
-      "lost_25pct_or_more": 0.1924
+      "market_change": 0.947,
+      "absolute_rate": 0.0564,
+      "relative_rate": 0.0417
     },
-    "test_covid": {
-      "origin": 1564617600000,
+    "2019-03-01": {
+      "live_games": 1548,
+      "market_change": 0.9925,
+      "absolute_rate": 0.0433,
+      "relative_rate": 0.0401
+    },
+    "2019-04-01": {
+      "live_games": 1547,
+      "market_change": 1.0787,
+      "absolute_rate": 0.0427,
+      "relative_rate": 0.0478
+    },
+    "2019-05-01": {
+      "live_games": 1559,
+      "market_change": 1.1133,
+      "absolute_rate": 0.0372,
+      "relative_rate": 0.0462
+    },
+    "2019-06-01": {
+      "live_games": 1563,
+      "market_change": 1.1752,
+      "absolute_rate": 0.0313,
+      "relative_rate": 0.0461
+    },
+    "2019-07-01": {
+      "live_games": 1556,
+      "market_change": 1.2276,
+      "absolute_rate": 0.0302,
+      "relative_rate": 0.045
+    },
+    "2019-08-01": {
       "live_games": 1528,
-      "decline_rate": 0.0255,
-      "median_change": 1.3475,
-      "lost_25pct_or_more": 0.0517
+      "market_change": 1.3432,
+      "absolute_rate": 0.0255,
+      "relative_rate": 0.0399
     }
   },
   "groups": {
@@ -52,692 +146,1033 @@
       {
         "group": "10–100 players",
         "games": 800,
-        "decline_rate": 0.2862,
-        "ci_low": 0.256,
-        "ci_high": 0.3185
+        "rate": 0.1862,
+        "ci_low": 0.1608,
+        "ci_high": 0.2147
       },
       {
         "group": "100–1,000 players",
         "games": 738,
-        "decline_rate": 0.126,
-        "ci_low": 0.104,
-        "ci_high": 0.1519
+        "rate": 0.0461,
+        "ci_low": 0.0332,
+        "ci_high": 0.0637
       },
       {
         "group": "1,000+ players",
         "games": 220,
-        "decline_rate": 0.1136,
-        "ci_low": 0.0782,
-        "ci_high": 0.1624
+        "rate": 0.0591,
+        "ci_low": 0.0349,
+        "ci_high": 0.0985
       }
     ],
     "90-day trend": [
       {
         "group": "Falling fast",
         "games": 799,
-        "decline_rate": 0.2816,
-        "ci_low": 0.2515,
-        "ci_high": 0.3138
+        "rate": 0.1552,
+        "ci_low": 0.1317,
+        "ci_high": 0.1819
       },
       {
         "group": "Falling slowly",
         "games": 454,
-        "decline_rate": 0.0771,
-        "ci_low": 0.056,
-        "ci_high": 0.1053
+        "rate": 0.0463,
+        "ci_low": 0.0305,
+        "ci_high": 0.0697
       },
       {
         "group": "Flat",
         "games": 177,
-        "decline_rate": 0.0734,
-        "ci_low": 0.0434,
-        "ci_high": 0.1216
+        "rate": 0.0452,
+        "ci_low": 0.0231,
+        "ci_high": 0.0866
       },
       {
         "group": "Growing",
         "games": 328,
-        "decline_rate": 0.2256,
-        "ci_low": 0.1837,
-        "ci_high": 0.2739
+        "rate": 0.1311,
+        "ci_low": 0.0988,
+        "ci_high": 0.1719
       }
     ],
     "Game age": [
       {
         "group": "< 6 months",
         "games": 306,
-        "decline_rate": 0.3366,
-        "ci_low": 0.286,
-        "ci_high": 0.3913
+        "rate": 0.183,
+        "ci_low": 0.1437,
+        "ci_high": 0.2302
       },
       {
         "group": "6 months – 2 years",
         "games": 546,
-        "decline_rate": 0.2875,
-        "ci_low": 0.2512,
-        "ci_high": 0.3269
+        "rate": 0.1886,
+        "ci_low": 0.158,
+        "ci_high": 0.2236
       },
       {
         "group": "2–5 years",
         "games": 543,
-        "decline_rate": 0.1197,
-        "ci_low": 0.095,
-        "ci_high": 0.1497
+        "rate": 0.0571,
+        "ci_low": 0.0405,
+        "ci_high": 0.0799
       },
       {
         "group": "5+ years",
         "games": 344,
-        "decline_rate": 0.0494,
-        "ci_low": 0.0311,
-        "ci_high": 0.0777
+        "rate": 0.0087,
+        "ci_low": 0.003,
+        "ci_high": 0.0253
       }
     ],
     "Business model": [
       {
         "group": "Free to play",
         "games": 339,
-        "decline_rate": 0.1947,
-        "ci_low": 0.1561,
-        "ci_high": 0.2402
+        "rate": 0.1062,
+        "ci_low": 0.0777,
+        "ci_high": 0.1435
       },
       {
         "group": "Paid",
         "games": 1412,
-        "decline_rate": 0.1962,
-        "ci_low": 0.1763,
-        "ci_high": 0.2177
+        "rate": 0.1119,
+        "ci_low": 0.0965,
+        "ci_high": 0.1294
       }
     ],
     "Genre (several per game)": [
       {
-        "group": "Racing",
-        "games": 61,
-        "decline_rate": 0.0984,
-        "ci_low": 0.0459,
-        "ci_high": 0.1984
+        "group": "Rpg",
+        "games": 453,
+        "rate": 0.053,
+        "ci_low": 0.0359,
+        "ci_high": 0.0776
       },
       {
         "group": "Strategy",
         "games": 520,
-        "decline_rate": 0.1327,
-        "ci_low": 0.1062,
-        "ci_high": 0.1646
+        "rate": 0.0615,
+        "ci_low": 0.0439,
+        "ci_high": 0.0856
       },
       {
-        "group": "Rpg",
-        "games": 453,
-        "decline_rate": 0.1501,
-        "ci_low": 0.1202,
-        "ci_high": 0.1859
-      },
-      {
-        "group": "Simulation",
-        "games": 426,
-        "decline_rate": 0.1502,
-        "ci_low": 0.1194,
-        "ci_high": 0.1873
-      },
-      {
-        "group": "Sports",
-        "games": 85,
-        "decline_rate": 0.1529,
-        "ci_low": 0.0916,
-        "ci_high": 0.2443
-      },
-      {
-        "group": "Early Access",
-        "games": 82,
-        "decline_rate": 0.1707,
-        "ci_low": 0.1045,
-        "ci_high": 0.2664
+        "group": "Racing",
+        "games": 61,
+        "rate": 0.0656,
+        "ci_low": 0.0258,
+        "ci_high": 0.1568
       },
       {
         "group": "Massively Multiplayer",
         "games": 187,
-        "decline_rate": 0.1765,
-        "ci_low": 0.1285,
-        "ci_high": 0.2375
+        "rate": 0.0695,
+        "ci_low": 0.0411,
+        "ci_high": 0.1153
+      },
+      {
+        "group": "Simulation",
+        "games": 426,
+        "rate": 0.0775,
+        "ci_low": 0.0557,
+        "ci_high": 0.1068
+      },
+      {
+        "group": "Sports",
+        "games": 85,
+        "rate": 0.0824,
+        "ci_low": 0.0405,
+        "ci_high": 0.1604
       },
       {
         "group": "Free To Play",
         "games": 282,
-        "decline_rate": 0.1915,
-        "ci_low": 0.1498,
-        "ci_high": 0.2414
+        "rate": 0.0957,
+        "ci_low": 0.0666,
+        "ci_high": 0.1357
       },
       {
         "group": "Action",
         "games": 837,
-        "decline_rate": 0.2162,
-        "ci_low": 0.1897,
-        "ci_high": 0.2454
+        "rate": 0.1147,
+        "ci_low": 0.0948,
+        "ci_high": 0.1381
       },
       {
         "group": "Adventure",
         "games": 517,
-        "decline_rate": 0.2456,
-        "ci_low": 0.2105,
-        "ci_high": 0.2845
+        "rate": 0.118,
+        "ci_low": 0.093,
+        "ci_high": 0.1487
+      },
+      {
+        "group": "Early Access",
+        "games": 82,
+        "rate": 0.122,
+        "ci_low": 0.0676,
+        "ci_high": 0.2101
       },
       {
         "group": "Indie",
         "games": 747,
-        "decline_rate": 0.2851,
-        "ci_low": 0.2539,
-        "ci_high": 0.3186
+        "rate": 0.174,
+        "ci_low": 0.1485,
+        "ci_high": 0.2029
       },
       {
         "group": "Casual",
         "games": 266,
-        "decline_rate": 0.3534,
-        "ci_low": 0.2984,
-        "ci_high": 0.4125
+        "rate": 0.2519,
+        "ci_low": 0.2035,
+        "ci_high": 0.3073
       }
     ]
   },
   "cv": {
-    "No change (persistence)": {
-      "roc_auc": 0.5,
-      "watchlist_precision": 0.1974,
-      "watchlist_lift": 1.0,
-      "balanced_accuracy": 0.5
-    },
-    "Trend rule": {
-      "roc_auc": 0.6525,
-      "watchlist_precision": 0.6667,
-      "watchlist_lift": 3.3792,
-      "balanced_accuracy": 0.6131
-    },
-    "Age rule": {
-      "roc_auc": 0.6932,
-      "watchlist_precision": 0.3722,
-      "watchlist_lift": 1.8852,
-      "balanced_accuracy": 0.5993
-    },
-    "Logistic regression": {
-      "roc_auc": 0.8827,
-      "watchlist_precision": 0.8389,
-      "watchlist_lift": 4.2491,
-      "balanced_accuracy": 0.7825
-    },
-    "Random forest": {
-      "roc_auc": 0.8894,
-      "watchlist_precision": 0.8389,
-      "watchlist_lift": 4.2495,
-      "balanced_accuracy": 0.7792
-    },
-    "Gradient boosting": {
-      "roc_auc": 0.8736,
-      "watchlist_precision": 0.8444,
-      "watchlist_lift": 4.2775,
-      "balanced_accuracy": 0.782
-    }
+    "No change (persistence)": 0.5,
+    "Trend rule": 0.6342,
+    "Age rule": 0.698,
+    "Logistic regression": 0.928,
+    "Random forest": 0.9216,
+    "Gradient boosting": 0.9058
   },
   "test": {
     "No change (persistence)": {
       "roc_auc": 0.5,
-      "avg_precision": 0.0564,
-      "watchlist_precision": 0.0564,
+      "avg_precision": 0.0417,
+      "watchlist_precision": 0.0417,
       "watchlist_lift": 1.0,
       "watchlist_recall": 0.1,
       "balanced_accuracy": 0.5,
       "precision": 0.0,
       "recall": 0.0,
       "roc_auc_low": 0.5,
-      "watchlist_precision_low": 0.0449,
+      "watchlist_precision_low": 0.0321,
+      "watchlist_recall_low": 0.1,
       "roc_auc_high": 0.5,
-      "watchlist_precision_high": 0.068
+      "watchlist_precision_high": 0.052,
+      "watchlist_recall_high": 0.1
     },
     "Trend rule": {
-      "roc_auc": 0.5856,
-      "avg_precision": 0.2878,
-      "watchlist_precision": 0.2179,
-      "watchlist_lift": 3.8612,
-      "watchlist_recall": 0.3864,
-      "balanced_accuracy": 0.5877,
-      "precision": 0.0826,
-      "recall": 0.5227,
-      "roc_auc_low": 0.4952,
-      "watchlist_precision_low": 0.1474,
-      "roc_auc_high": 0.6736,
-      "watchlist_precision_high": 0.2821
+      "roc_auc": 0.6446,
+      "avg_precision": 0.3314,
+      "watchlist_precision": 0.1987,
+      "watchlist_lift": 4.7662,
+      "watchlist_recall": 0.4769,
+      "balanced_accuracy": 0.6186,
+      "precision": 0.0682,
+      "recall": 0.5846,
+      "roc_auc_low": 0.5464,
+      "watchlist_precision_low": 0.1346,
+      "watchlist_recall_low": 0.3421,
+      "roc_auc_high": 0.7371,
+      "watchlist_precision_high": 0.2628,
+      "watchlist_recall_high": 0.5834
     },
     "Age rule": {
-      "roc_auc": 0.6114,
-      "avg_precision": 0.0929,
-      "watchlist_precision": 0.0769,
-      "watchlist_lift": 1.3628,
-      "watchlist_recall": 0.1364,
-      "balanced_accuracy": 0.5288,
-      "precision": 0.1404,
-      "recall": 0.0909,
-      "roc_auc_low": 0.559,
-      "watchlist_precision_low": 0.0385,
-      "roc_auc_high": 0.6651,
-      "watchlist_precision_high": 0.1284
+      "roc_auc": 0.5778,
+      "avg_precision": 0.0603,
+      "watchlist_precision": 0.0449,
+      "watchlist_lift": 1.0762,
+      "watchlist_recall": 0.1077,
+      "balanced_accuracy": 0.5211,
+      "precision": 0.0877,
+      "recall": 0.0769,
+      "roc_auc_low": 0.5209,
+      "watchlist_precision_low": 0.0192,
+      "watchlist_recall_low": 0.0469,
+      "roc_auc_high": 0.6389,
+      "watchlist_precision_high": 0.0897,
+      "watchlist_recall_high": 0.2069
     },
     "Logistic regression": {
-      "roc_auc": 0.8189,
-      "avg_precision": 0.4115,
-      "watchlist_precision": 0.2756,
-      "watchlist_lift": 4.8832,
-      "watchlist_recall": 0.4886,
-      "balanced_accuracy": 0.7066,
-      "precision": 0.2792,
-      "recall": 0.4886,
-      "roc_auc_low": 0.7619,
-      "watchlist_precision_low": 0.2051,
-      "roc_auc_high": 0.8641,
-      "watchlist_precision_high": 0.359
+      "roc_auc": 0.8105,
+      "avg_precision": 0.3676,
+      "watchlist_precision": 0.2308,
+      "watchlist_lift": 5.5349,
+      "watchlist_recall": 0.5538,
+      "balanced_accuracy": 0.7277,
+      "precision": 0.2973,
+      "recall": 0.5077,
+      "roc_auc_low": 0.746,
+      "watchlist_precision_low": 0.1667,
+      "watchlist_recall_low": 0.4375,
+      "roc_auc_high": 0.8674,
+      "watchlist_precision_high": 0.3013,
+      "watchlist_recall_high": 0.6615
     },
     "Random forest": {
-      "roc_auc": 0.8261,
-      "avg_precision": 0.3846,
-      "watchlist_precision": 0.2821,
-      "watchlist_lift": 4.9968,
-      "watchlist_recall": 0.5,
-      "balanced_accuracy": 0.6869,
-      "precision": 0.4091,
-      "recall": 0.4091,
-      "roc_auc_low": 0.7737,
-      "watchlist_precision_low": 0.2115,
-      "roc_auc_high": 0.8712,
-      "watchlist_precision_high": 0.359
+      "roc_auc": 0.8432,
+      "avg_precision": 0.3859,
+      "watchlist_precision": 0.2692,
+      "watchlist_lift": 6.4574,
+      "watchlist_recall": 0.6462,
+      "balanced_accuracy": 0.7174,
+      "precision": 0.3298,
+      "recall": 0.4769,
+      "roc_auc_low": 0.7779,
+      "watchlist_precision_low": 0.1987,
+      "watchlist_recall_low": 0.523,
+      "roc_auc_high": 0.9025,
+      "watchlist_precision_high": 0.3397,
+      "watchlist_recall_high": 0.7593
     },
     "Gradient boosting": {
-      "roc_auc": 0.8171,
-      "avg_precision": 0.3472,
-      "watchlist_precision": 0.2821,
-      "watchlist_lift": 4.9968,
-      "watchlist_recall": 0.5,
-      "balanced_accuracy": 0.6751,
-      "precision": 0.3333,
-      "recall": 0.3977,
-      "roc_auc_low": 0.7646,
-      "watchlist_precision_low": 0.2051,
-      "roc_auc_high": 0.8639,
-      "watchlist_precision_high": 0.359
+      "roc_auc": 0.8239,
+      "avg_precision": 0.3677,
+      "watchlist_precision": 0.2628,
+      "watchlist_lift": 6.3036,
+      "watchlist_recall": 0.6308,
+      "balanced_accuracy": 0.7789,
+      "precision": 0.2733,
+      "recall": 0.6308,
+      "roc_auc_low": 0.7551,
+      "watchlist_precision_low": 0.1859,
+      "watchlist_recall_low": 0.5,
+      "roc_auc_high": 0.8812,
+      "watchlist_precision_high": 0.3462,
+      "watchlist_recall_high": 0.7398
     }
   },
+  "monthly_backtest": {
+    "2019-01-01": {
+      "training_starts": 2,
+      "games": 1586,
+      "collapse_rate": 0.0454,
+      "auc_new": 0.8421,
+      "auc_one_start": 0.8374,
+      "auc_trend": 0.5851,
+      "watch_recall_new": 0.6111,
+      "watch_recall_one_start": 0.5972,
+      "watch_recall_trend": 0.4028,
+      "predicted_rate_relative": 0.0513,
+      "actual_rate_relative": 0.0454,
+      "predicted_rate_absolute": 0.1013,
+      "actual_rate_absolute": 0.0637,
+      "brier_new": 0.0381,
+      "brier_base_rate": 0.0467
+    },
+    "2019-02-01": {
+      "training_starts": 3,
+      "games": 1559,
+      "collapse_rate": 0.0417,
+      "auc_new": 0.8432,
+      "auc_one_start": 0.8138,
+      "auc_trend": 0.6446,
+      "watch_recall_new": 0.6462,
+      "watch_recall_one_start": 0.5692,
+      "watch_recall_trend": 0.4769,
+      "predicted_rate_relative": 0.0463,
+      "actual_rate_relative": 0.0417,
+      "predicted_rate_absolute": 0.0932,
+      "actual_rate_absolute": 0.0564,
+      "brier_new": 0.0318,
+      "brier_base_rate": 0.0433
+    },
+    "2019-03-01": {
+      "training_starts": 4,
+      "games": 1548,
+      "collapse_rate": 0.0401,
+      "auc_new": 0.8042,
+      "auc_one_start": 0.772,
+      "auc_trend": 0.6229,
+      "watch_recall_new": 0.4839,
+      "watch_recall_one_start": 0.3871,
+      "watch_recall_trend": 0.3548,
+      "predicted_rate_relative": 0.0438,
+      "actual_rate_relative": 0.0401,
+      "predicted_rate_absolute": 0.0823,
+      "actual_rate_absolute": 0.0433,
+      "brier_new": 0.0354,
+      "brier_base_rate": 0.0417
+    },
+    "2019-04-01": {
+      "training_starts": 5,
+      "games": 1547,
+      "collapse_rate": 0.0478,
+      "auc_new": 0.835,
+      "auc_one_start": 0.7778,
+      "auc_trend": 0.5783,
+      "watch_recall_new": 0.5405,
+      "watch_recall_one_start": 0.4189,
+      "watch_recall_trend": 0.3243,
+      "predicted_rate_relative": 0.0453,
+      "actual_rate_relative": 0.0478,
+      "predicted_rate_absolute": 0.079,
+      "actual_rate_absolute": 0.0427,
+      "brier_new": 0.0382,
+      "brier_base_rate": 0.0477
+    },
+    "2019-05-01": {
+      "training_starts": 6,
+      "games": 1559,
+      "collapse_rate": 0.0462,
+      "auc_new": 0.8014,
+      "auc_one_start": 0.7452,
+      "auc_trend": 0.5967,
+      "watch_recall_new": 0.5278,
+      "watch_recall_one_start": 0.4028,
+      "watch_recall_trend": 0.2917,
+      "predicted_rate_relative": 0.0532,
+      "actual_rate_relative": 0.0462,
+      "predicted_rate_absolute": 0.087,
+      "actual_rate_absolute": 0.0372,
+      "brier_new": 0.0392,
+      "brier_base_rate": 0.0461
+    },
+    "2019-06-01": {
+      "training_starts": 7,
+      "games": 1563,
+      "collapse_rate": 0.0461,
+      "auc_new": 0.86,
+      "auc_one_start": 0.8235,
+      "auc_trend": 0.6107,
+      "watch_recall_new": 0.5556,
+      "watch_recall_one_start": 0.4722,
+      "watch_recall_trend": 0.3611,
+      "predicted_rate_relative": 0.0568,
+      "actual_rate_relative": 0.0461,
+      "predicted_rate_absolute": 0.0886,
+      "actual_rate_absolute": 0.0313,
+      "brier_new": 0.0389,
+      "brier_base_rate": 0.0458
+    },
+    "2019-07-01": {
+      "training_starts": 8,
+      "games": 1556,
+      "collapse_rate": 0.045,
+      "auc_new": 0.8447,
+      "auc_one_start": 0.808,
+      "auc_trend": 0.5568,
+      "watch_recall_new": 0.6143,
+      "watch_recall_one_start": 0.5429,
+      "watch_recall_trend": 0.2429,
+      "predicted_rate_relative": 0.0609,
+      "actual_rate_relative": 0.045,
+      "predicted_rate_absolute": 0.0975,
+      "actual_rate_absolute": 0.0302,
+      "brier_new": 0.0361,
+      "brier_base_rate": 0.0447
+    },
+    "2019-08-01": {
+      "training_starts": 9,
+      "games": 1528,
+      "collapse_rate": 0.0399,
+      "auc_new": 0.8419,
+      "auc_one_start": 0.8012,
+      "auc_trend": 0.5498,
+      "watch_recall_new": 0.5082,
+      "watch_recall_one_start": 0.5246,
+      "watch_recall_trend": 0.2459,
+      "predicted_rate_relative": 0.0451,
+      "actual_rate_relative": 0.0399,
+      "predicted_rate_absolute": 0.0678,
+      "actual_rate_absolute": 0.0255,
+      "brier_new": 0.0309,
+      "brier_base_rate": 0.0403
+    }
+  },
+  "monthly_summary": {
+    "auc_new": {
+      "mean": 0.8341,
+      "min": 0.8014,
+      "max": 0.86
+    },
+    "auc_one_start": {
+      "mean": 0.7974,
+      "min": 0.7452,
+      "max": 0.8374
+    },
+    "auc_trend": {
+      "mean": 0.5931,
+      "min": 0.5498,
+      "max": 0.6446
+    },
+    "watch_recall_new": {
+      "mean": 0.5609,
+      "min": 0.4839,
+      "max": 0.6462
+    },
+    "watch_recall_one_start": {
+      "mean": 0.4894,
+      "min": 0.3871,
+      "max": 0.5972
+    },
+    "watch_recall_trend": {
+      "mean": 0.3376,
+      "min": 0.2429,
+      "max": 0.4769
+    }
+  },
+  "calibration_bins": [
+    {
+      "games": 1245,
+      "predicted": 0.0219,
+      "actual": 0.008
+    },
+    {
+      "games": 1245,
+      "predicted": 0.0227,
+      "actual": 0.0064
+    },
+    {
+      "games": 1244,
+      "predicted": 0.0233,
+      "actual": 0.0105
+    },
+    {
+      "games": 1245,
+      "predicted": 0.0241,
+      "actual": 0.0096
+    },
+    {
+      "games": 1244,
+      "predicted": 0.0253,
+      "actual": 0.0185
+    },
+    {
+      "games": 1245,
+      "predicted": 0.027,
+      "actual": 0.0193
+    },
+    {
+      "games": 1244,
+      "predicted": 0.0299,
+      "actual": 0.0233
+    },
+    {
+      "games": 1245,
+      "predicted": 0.0352,
+      "actual": 0.0321
+    },
+    {
+      "games": 1244,
+      "predicted": 0.0493,
+      "actual": 0.0683
+    },
+    {
+      "games": 1245,
+      "predicted": 0.2451,
+      "actual": 0.2442
+    }
+  ],
   "by_size": [
     {
       "size_band": "10–100 players",
       "model": "Trend rule",
       "games": 797,
-      "declines": 52,
-      "roc_auc": 0.6435,
-      "auc_low": 0.5244,
-      "auc_high": 0.7512,
-      "watchlist_precision": 0.275,
-      "base_rate": 0.0652
+      "collapses": 40,
+      "roc_auc": 0.7216,
+      "auc_low": 0.5909,
+      "auc_high": 0.834
     },
     {
       "size_band": "10–100 players",
       "model": "Age rule",
       "games": 797,
-      "declines": 52,
-      "roc_auc": 0.6506,
-      "auc_low": 0.5804,
-      "auc_high": 0.7146,
-      "watchlist_precision": 0.125,
-      "base_rate": 0.0652
+      "collapses": 40,
+      "roc_auc": 0.6323,
+      "auc_low": 0.5519,
+      "auc_high": 0.7141
     },
     {
       "size_band": "10–100 players",
       "model": "Random forest",
       "games": 797,
-      "declines": 52,
-      "roc_auc": 0.8762,
-      "auc_low": 0.8271,
-      "auc_high": 0.9212,
-      "watchlist_precision": 0.3875,
-      "base_rate": 0.0652
+      "collapses": 40,
+      "roc_auc": 0.9064,
+      "auc_low": 0.8524,
+      "auc_high": 0.95
     },
     {
       "size_band": "100–1,000 players",
       "model": "Trend rule",
       "games": 592,
-      "declines": 25,
-      "roc_auc": 0.5176,
-      "auc_low": 0.3791,
-      "auc_high": 0.6673,
-      "watchlist_precision": 0.1167,
-      "base_rate": 0.0422
+      "collapses": 19,
+      "roc_auc": 0.5593,
+      "auc_low": 0.3985,
+      "auc_high": 0.7225
     },
     {
       "size_band": "100–1,000 players",
       "model": "Age rule",
       "games": 592,
-      "declines": 25,
-      "roc_auc": 0.5476,
-      "auc_low": 0.4482,
-      "auc_high": 0.6493,
-      "watchlist_precision": 0.0333,
-      "base_rate": 0.0422
+      "collapses": 19,
+      "roc_auc": 0.4919,
+      "auc_low": 0.3868,
+      "auc_high": 0.6015
     },
     {
       "size_band": "100–1,000 players",
       "model": "Random forest",
       "games": 592,
-      "declines": 25,
-      "roc_auc": 0.7477,
-      "auc_low": 0.6343,
-      "auc_high": 0.8437,
-      "watchlist_precision": 0.1667,
-      "base_rate": 0.0422
+      "collapses": 19,
+      "roc_auc": 0.7256,
+      "auc_low": 0.5637,
+      "auc_high": 0.8617
     },
     {
       "size_band": "1,000+ players",
       "model": "Trend rule",
       "games": 170,
-      "declines": 11,
-      "roc_auc": 0.4694,
-      "auc_low": 0.204,
-      "auc_high": 0.7425,
-      "watchlist_precision": 0.1765,
-      "base_rate": 0.0647
+      "collapses": 6,
+      "roc_auc": 0.4045,
+      "auc_low": 0.0176,
+      "auc_high": 0.7636
     },
     {
       "size_band": "1,000+ players",
       "model": "Age rule",
       "games": 170,
-      "declines": 11,
-      "roc_auc": 0.5738,
-      "auc_low": 0.3931,
-      "auc_high": 0.749,
-      "watchlist_precision": 0.1176,
-      "base_rate": 0.0647
+      "collapses": 6,
+      "roc_auc": 0.4883,
+      "auc_low": 0.3061,
+      "auc_high": 0.7155
     },
     {
       "size_band": "1,000+ players",
       "model": "Random forest",
       "games": 170,
-      "declines": 11,
-      "roc_auc": 0.8022,
-      "auc_low": 0.6257,
-      "auc_high": 0.9372,
-      "watchlist_precision": 0.2941,
-      "base_rate": 0.0647
+      "collapses": 6,
+      "roc_auc": 0.7774,
+      "auc_low": 0.4588,
+      "auc_high": 0.9887
     }
   ],
   "launch": {
     "games": 141,
-    "declines": 72,
-    "kinds": {
-      "Released ≤45 days before tracking": 74,
-      "1.0 release during tracking": 67
-    },
+    "collapses": 50,
     "results": {
       "Trend rule": {
-        "roc_auc": 0.7742,
-        "avg_precision": 0.7781,
-        "watchlist_precision": 0.9333,
-        "watchlist_lift": 1.8278,
-        "watchlist_recall": 0.1944,
-        "balanced_accuracy": 0.6606,
-        "precision": 0.6126,
-        "recall": 0.9444,
-        "auc_low": 0.69,
-        "auc_high": 0.8483
+        "roc_auc": 0.751,
+        "auc_low": 0.6644,
+        "auc_high": 0.835
       },
       "Random forest": {
-        "roc_auc": 0.7866,
-        "avg_precision": 0.7705,
-        "watchlist_precision": 0.9333,
-        "watchlist_lift": 1.8278,
-        "watchlist_recall": 0.1944,
-        "balanced_accuracy": 0.6845,
-        "precision": 0.7872,
-        "recall": 0.5139,
-        "auc_low": 0.7036,
-        "auc_high": 0.8662
+        "roc_auc": 0.7686,
+        "auc_low": 0.6796,
+        "auc_high": 0.859
       }
     },
-    "decline_rate_by_score_third": {
-      "Lowest third of scores": 0.234,
-      "Middle third": 0.5106,
-      "Highest third of scores": 0.7872
+    "thirds": {
+      "Lowest third of scores": {
+        "size": 47,
+        "mean": 0.1277
+      },
+      "Middle third": {
+        "size": 47,
+        "mean": 0.2553
+      },
+      "Highest third of scores": {
+        "size": 47,
+        "mean": 0.6809
+      }
     }
   },
   "ablation": {
     "Metadata only": {
       "n_features": 42,
-      "cv_auc_mean": 0.8002,
-      "cv_auc_std": 0.0692,
-      "test_auc": 0.655,
-      "test_auc_low": 0.597,
-      "test_auc_high": 0.7194,
-      "test_watchlist_precision": 0.109
+      "test_auc": 0.6305,
+      "test_auc_low": 0.5608,
+      "test_auc_high": 0.6996,
+      "watchlist_recall": 0.2462
     },
     "Twitch only": {
       "n_features": 7,
-      "cv_auc_mean": 0.6638,
-      "cv_auc_std": 0.0539,
-      "test_auc": 0.5868,
-      "test_auc_low": 0.5264,
-      "test_auc_high": 0.657,
-      "test_watchlist_precision": 0.1154
+      "test_auc": 0.6035,
+      "test_auc_low": 0.5363,
+      "test_auc_high": 0.6885,
+      "watchlist_recall": 0.2615
     },
     "Metadata + Twitch": {
       "n_features": 49,
-      "cv_auc_mean": 0.8084,
-      "cv_auc_std": 0.0678,
-      "test_auc": 0.6779,
-      "test_auc_low": 0.6199,
-      "test_auc_high": 0.7368,
-      "test_watchlist_precision": 0.141
+      "test_auc": 0.6522,
+      "test_auc_low": 0.5808,
+      "test_auc_high": 0.7242,
+      "watchlist_recall": 0.2923
     },
     "Steam only": {
       "n_features": 8,
-      "cv_auc_mean": 0.8631,
-      "cv_auc_std": 0.029,
-      "test_auc": 0.8239,
-      "test_auc_low": 0.7664,
-      "test_auc_high": 0.8679,
-      "test_watchlist_precision": 0.2949
+      "test_auc": 0.8169,
+      "test_auc_low": 0.7546,
+      "test_auc_high": 0.8681,
+      "watchlist_recall": 0.5846
     },
     "Metadata + Steam": {
       "n_features": 50,
-      "cv_auc_mean": 0.8925,
-      "cv_auc_std": 0.0275,
-      "test_auc": 0.8267,
-      "test_auc_low": 0.773,
-      "test_auc_high": 0.8699,
-      "test_watchlist_precision": 0.2821
+      "test_auc": 0.8495,
+      "test_auc_low": 0.7884,
+      "test_auc_high": 0.9058,
+      "watchlist_recall": 0.6615
     },
     "Metadata + Steam + Twitch": {
       "n_features": 57,
-      "cv_auc_mean": 0.8894,
-      "cv_auc_std": 0.0275,
-      "test_auc": 0.8261,
-      "test_auc_low": 0.7739,
-      "test_auc_high": 0.8706,
-      "test_watchlist_precision": 0.2821
+      "test_auc": 0.8432,
+      "test_auc_low": 0.7722,
+      "test_auc_high": 0.9005,
+      "watchlist_recall": 0.6462
     }
   },
   "twitch_auc_change": [
-    -0.0006,
-    -0.009,
-    0.0077
+    -0.0063,
+    -0.0223,
+    0.0087
   ],
   "group_importance": {
     "Metadata": {
-      "auc_drop": 0.0292,
-      "std": 0.0118
+      "auc_drop": 0.0511,
+      "std": 0.0169
     },
     "Steam activity": {
-      "auc_drop": 0.2457,
-      "std": 0.0181
+      "auc_drop": 0.2486,
+      "std": 0.0207
     },
     "Twitch": {
-      "auc_drop": 0.0019,
-      "std": 0.0042
+      "auc_drop": 0.0066,
+      "std": 0.0069
     },
     "Genres + tags": {
-      "auc_drop": 0.007,
-      "std": 0.0071
+      "auc_drop": 0.0169,
+      "std": 0.0102
     }
   },
   "top_features": {
     "volatility": {
-      "auc_drop": 0.0353,
-      "std": 0.0049
+      "auc_drop": 0.0189,
+      "std": 0.0072
     },
     "trend_log_per_30d": {
-      "auc_drop": 0.0129,
-      "std": 0.0069
+      "auc_drop": 0.0148,
+      "std": 0.0085
     },
     "last_vs_first_month": {
-      "auc_drop": 0.0121,
-      "std": 0.0063
-    },
-    "age_years": {
-      "auc_drop": 0.011,
-      "std": 0.0019
-    },
-    "log_peak_to_mean": {
-      "auc_drop": 0.0084,
-      "std": 0.0052
-    },
-    "freetoplay": {
-      "auc_drop": 0.0047,
-      "std": 0.0033
+      "auc_drop": 0.0117,
+      "std": 0.008
     },
     "log_early_min": {
-      "auc_drop": 0.0039,
-      "std": 0.006
+      "auc_drop": 0.008,
+      "std": 0.0097
+    },
+    "log_early_mean": {
+      "auc_drop": 0.0067,
+      "std": 0.0027
+    },
+    "log_twitch_peak_viewers": {
+      "auc_drop": 0.0056,
+      "std": 0.0033
+    },
+    "freetoplay": {
+      "auc_drop": 0.0055,
+      "std": 0.0074
     },
     "tag_free_to_play": {
-      "auc_drop": 0.0025,
-      "std": 0.0015
+      "auc_drop": 0.0035,
+      "std": 0.0045
     },
-    "n_tags": {
-      "auc_drop": 0.0024,
-      "std": 0.0022
-    },
-    "tag_co_op": {
-      "auc_drop": 0.0018,
+    "tag_great_soundtrack": {
+      "auc_drop": 0.0034,
       "std": 0.0011
+    },
+    "log_peak_to_mean": {
+      "auc_drop": 0.0032,
+      "std": 0.0087
     }
   },
   "sensitivity": {
-    "lost ≥ 25%": {
-      "test_rate": 0.1924,
-      "test_events": 300,
-      "trend_rule_auc": 0.5102,
-      "model_auc": 0.7475,
-      "trend_rule_watchlist_precision": 0.4295,
-      "model_watchlist_precision": 0.5256
+    "lost ≥ 25% vs market": {
+      "test_rate": 0.1533,
+      "test_events": 239,
+      "trend_rule_auc": 0.5106,
+      "model_auc": 0.8082,
+      "model_watchlist_recall": 0.3766
     },
-    "lost ≥ 50%": {
-      "test_rate": 0.0564,
-      "test_events": 88,
-      "trend_rule_auc": 0.5856,
-      "model_auc": 0.8261,
-      "trend_rule_watchlist_precision": 0.2179,
-      "model_watchlist_precision": 0.2821
+    "lost ≥ 50% vs market": {
+      "test_rate": 0.0417,
+      "test_events": 65,
+      "trend_rule_auc": 0.6446,
+      "model_auc": 0.8432,
+      "model_watchlist_recall": 0.6462
     },
-    "lost ≥ 75%": {
-      "test_rate": 0.0154,
-      "test_events": 24,
-      "trend_rule_auc": 0.7618,
-      "model_auc": 0.9581,
-      "trend_rule_watchlist_precision": 0.0962,
-      "model_watchlist_precision": 0.1218
-    }
-  },
-  "covid_test": {
-    "games": 1528,
-    "declines": 39,
-    "results": {
-      "Trend rule": {
-        "roc_auc": 0.5616,
-        "avg_precision": 0.1368,
-        "watchlist_precision": 0.0719,
-        "watchlist_lift": 2.8168,
-        "watchlist_recall": 0.2821,
-        "balanced_accuracy": 0.5558,
-        "precision": 0.034,
-        "recall": 0.4359,
-        "auc_low": 0.4436,
-        "auc_high": 0.6765
-      },
-      "Age rule": {
-        "roc_auc": 0.6403,
-        "avg_precision": 0.0362,
-        "watchlist_precision": 0.0327,
-        "watchlist_lift": 1.2804,
-        "watchlist_recall": 0.1282,
-        "balanced_accuracy": 0.4923,
-        "precision": 0.0,
-        "recall": 0.0,
-        "auc_low": 0.5661,
-        "auc_high": 0.7036
-      },
-      "Random forest": {
-        "roc_auc": 0.8256,
-        "avg_precision": 0.3725,
-        "watchlist_precision": 0.1503,
-        "watchlist_lift": 5.8897,
-        "watchlist_recall": 0.5897,
-        "balanced_accuracy": 0.7069,
-        "precision": 0.34,
-        "recall": 0.4359,
-        "auc_low": 0.7484,
-        "auc_high": 0.8961
-      }
+    "lost ≥ 75% vs market": {
+      "test_rate": 0.0128,
+      "test_events": 20,
+      "trend_rule_auc": 0.7645,
+      "model_auc": 0.9563,
+      "model_watchlist_recall": 0.85
     }
   },
   "regression": {
-    "No change (persistence)": {
-      "MAE_log": 0.2744,
-      "median_abs_error_pct_points": 16.5118,
+    "No change vs market": {
+      "MAE_log": 0.2693,
       "rank_corr_with_actual_change": null
     },
     "Trend extrapolation": {
-      "MAE_log": 0.8938,
-      "median_abs_error_pct_points": 46.8732,
+      "MAE_log": 0.9186,
       "rank_corr_with_actual_change": 0.0142
     },
     "Random forest": {
-      "MAE_log": 0.2949,
-      "median_abs_error_pct_points": 17.6756,
-      "rank_corr_with_actual_change": 0.3387
+      "MAE_log": 0.2505,
+      "rank_corr_with_actual_change": 0.3804
     }
   },
+  "theme_share_watchlist": {
+    "spiky": 0.2156,
+    "peak": 0.1443,
+    "floor": 0.1385,
+    "trend": 0.0832,
+    "genre_tags": 0.0813,
+    "last_month": 0.0776,
+    "business": 0.0742,
+    "store_page": 0.04,
+    "weekend": 0.0369,
+    "twitch": 0.0314,
+    "empty_days": 0.028,
+    "level": 0.026,
+    "age": 0.0129,
+    "publisher": 0.01
+  },
   "tiers_backtest": {
-    "Watch list (top 10%)": {
+    "Watch list": {
       "games": 155,
-      "lost_half": 44,
-      "share_lost_half": 0.2839,
-      "median_change": 0.6564,
-      "median_players_now": 48.366,
-      "share_of_all_declines": 0.5,
-      "trend_rule_share_lost_half": 0.2194
+      "collapsed": 42,
+      "share_collapsed": 0.271,
+      "mean_probability": 0.2151,
+      "median_players_now": 55.029,
+      "share_of_all_collapses": 0.6462
     },
-    "Monitor (next 20%)": {
+    "Monitor": {
       "games": 312,
-      "lost_half": 26,
-      "share_lost_half": 0.0833,
-      "median_change": 0.9049,
-      "median_players_now": 55.2842,
-      "share_of_all_declines": 0.2955,
-      "trend_rule_share_lost_half": 0.0321
+      "collapsed": 10,
+      "share_collapsed": 0.0321,
+      "mean_probability": 0.04,
+      "median_players_now": 74.3319,
+      "share_of_all_collapses": 0.1538
     },
-    "Stable (other 70%)": {
+    "Stable": {
       "games": 1092,
-      "lost_half": 18,
-      "share_lost_half": 0.0165,
-      "median_change": 0.9753,
-      "median_players_now": 125.3341,
-      "share_of_all_declines": 0.2045,
-      "trend_rule_share_lost_half": 0.0403
+      "collapsed": 13,
+      "share_collapsed": 0.0119,
+      "mean_probability": 0.0241,
+      "median_players_now": 114.9564,
+      "share_of_all_collapses": 0.2
     }
   },
   "big_games": {
     "games": 170,
-    "declines": 11,
-    "on_watchlist": 5,
-    "on_watchlist_declined": 3
+    "collapses": 6,
+    "on_watchlist": 11,
+    "on_watchlist_collapsed": 4
   },
-  "forecast_games": 1554
+  "catch_curve": {
+    "Trend rule": [
+      0.0,
+      0.2154,
+      0.2615,
+      0.3077,
+      0.3385,
+      0.3385,
+      0.3692,
+      0.3846,
+      0.4154,
+      0.4462,
+      0.4769,
+      0.4923,
+      0.4923,
+      0.4923,
+      0.4923,
+      0.4923,
+      0.5077,
+      0.5077,
+      0.5231,
+      0.5231,
+      0.5538,
+      0.5538,
+      0.5538,
+      0.5538,
+      0.5692,
+      0.5692,
+      0.5692,
+      0.5692,
+      0.5692,
+      0.5692,
+      0.5846,
+      0.5846,
+      0.5846,
+      0.5846,
+      0.5846,
+      0.5846,
+      0.5846,
+      0.6154,
+      0.6154,
+      0.6154,
+      0.6154,
+      0.6308,
+      0.6308,
+      0.6308,
+      0.6308,
+      0.6308,
+      0.6308,
+      0.6462,
+      0.6462,
+      0.6462,
+      0.6462,
+      0.6462,
+      0.6462,
+      0.6615,
+      0.6615,
+      0.6615,
+      0.6769,
+      0.6769,
+      0.6923,
+      0.6923,
+      0.6923,
+      0.6923,
+      0.7077,
+      0.7077,
+      0.7077,
+      0.7231,
+      0.7231,
+      0.7231,
+      0.7231,
+      0.7231,
+      0.7231,
+      0.7231,
+      0.7231,
+      0.7231,
+      0.7385,
+      0.7385,
+      0.7385,
+      0.7538,
+      0.7538,
+      0.7538,
+      0.7692,
+      0.7692,
+      0.7846,
+      0.7846,
+      0.7846,
+      0.7846,
+      0.7846,
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8154,
+      0.8154,
+      0.8308,
+      0.8615,
+      0.8615,
+      0.8769,
+      0.8923,
+      1.0
+    ],
+    "Random forest": [
+      0.0,
+      0.1692,
+      0.2923,
+      0.3538,
+      0.4308,
+      0.4615,
+      0.4769,
+      0.5538,
+      0.5846,
+      0.6,
+      0.6462,
+      0.6769,
+      0.6923,
+      0.7077,
+      0.7077,
+      0.7077,
+      0.7385,
+      0.7538,
+      0.7538,
+      0.7692,
+      0.7692,
+      0.7846,
+      0.7846,
+      0.7846,
+      0.7846,
+      0.7846,
+      0.7846,
+      0.7846,
+      0.7846,
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8154,
+      0.8154,
+      0.8308,
+      0.8308,
+      0.8462,
+      0.8615,
+      0.8615,
+      0.8615,
+      0.8615,
+      0.8615,
+      0.8615,
+      0.8615,
+      0.8615,
+      0.8615,
+      0.8769,
+      0.8769,
+      0.8769,
+      0.8769,
+      0.8769,
+      0.8769,
+      0.8769,
+      0.8769,
+      0.8769,
+      0.8769,
+      0.8769,
+      0.8769,
+      0.8769,
+      0.8923,
+      0.8923,
+      0.8923,
+      0.8923,
+      0.8923,
+      0.8923,
+      0.9077,
+      0.9077,
+      0.9077,
+      0.9077,
+      0.9077,
+      0.9077,
+      0.9385,
+      0.9385,
+      0.9385,
+      0.9385,
+      0.9385,
+      0.9538,
+      0.9538,
+      0.9538,
+      0.9538,
+      0.9692,
+      0.9692,
+      0.9692,
+      0.9692,
+      0.9692,
+      0.9692,
+      0.9692,
+      0.9692,
+      0.9692,
+      0.9692,
+      0.9846,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "forecast": {
+    "games": 1554,
+    "mean_probability": 0.0512
+  }
 }
