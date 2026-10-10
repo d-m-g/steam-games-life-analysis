@@ -1,0 +1,8 @@
+numpy>=2.2
+pandas>=2.2
+pyarrow>=17
+matplotlib>=3.9
+scikit-learn>=1.6
+ipykernel>=6.29
+nbclient>=0.10
+nbformat>=5.10
