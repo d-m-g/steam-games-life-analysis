@@ -100,15 +100,17 @@ tbody tr:last-child td { border-bottom: 0; }
 .stat span { font-size: var(--step--1); color: var(--muted); }
 @media (max-width: 760px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .stat:nth-child(2) { border-right: 0; } .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); } }
 
-.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 40px; }
 @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
 .card { padding: 18px; display: grid; gap: 8px; align-content: start; }
+/* Prose blocks read as open columns under a rule; only data objects (figures, tables, example games) get a box. */
+.panel.card:not(.example), .steps li.panel { background: none; border: 0; border-top: 2px solid var(--ink); border-radius: 0; padding: 14px 0 0; }
 .card p, .card li { color: var(--muted); }
 ul.plain { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
 
-.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; counter-reset: step; }
-.steps li { counter-increment: step; padding: 16px; display: grid; gap: 6px; align-content: start; }
-.steps li::before { content: counter(step); font-family: var(--font-data); font-size: var(--step--1); color: var(--accent); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; counter-reset: step; }
+.steps li { counter-increment: step; display: grid; gap: 8px; align-content: start; }
+.steps li::before { content: "0" counter(step); font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: 2.25rem; line-height: 1; color: var(--accent); }
 .steps li p { font-size: 0.92rem; color: var(--muted); }
 @media (max-width: 860px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
@@ -118,6 +120,18 @@ ul.plain { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: var(--step--1); color: var(--muted); }
 .legend i { display: inline-block; width: 16px; height: 3px; vertical-align: middle; margin-right: 6px; border-radius: 2px; }
 .legend i.dot { width: 9px; height: 9px; border-radius: 50%; }
+.legend i.bar { width: 18px; height: 10px; border-radius: 2px; background: linear-gradient(90deg, var(--critical) 0 34%, var(--serious) 34% 67%, var(--neutral) 67%); }
+.legend i.tick { width: 3px; height: 14px; border-radius: 1px; background: var(--ink); margin-inline: 4px 10px; }
+table.compact th, table.compact td { padding: 8px 6px; }
+table.compact th:first-child, table.compact td:first-child { padding-left: 0; }
+table.compact th:last-child, table.compact td:last-child { padding-right: 0; }
+table.compact .sub { display: block; padding-left: 15px; font-size: 0.75rem; color: var(--muted); }
+@media (max-width: 480px) {
+  table.compact { font-size: 0.82rem; }
+  table.compact th { letter-spacing: 0; font-size: 0.64rem; }
+  table.compact th, table.compact td { padding-inline: 4px; }
+  .figure { padding: 14px 12px; }
+}
 .slider-row { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 16px; align-items: center; }
 .slider-row label { font-weight: 600; }
 input[type="range"] { width: 100%; accent-color: var(--accent); }
@@ -147,8 +161,21 @@ dl.spec dt, dl.spec dd { padding: 10px 0; border-bottom: 1px solid var(--line); 
 dl.spec dt { font-weight: 600; padding-right: 16px; }
 dl.spec dd { color: var(--muted); }
 @media (max-width: 560px) { dl.spec { grid-template-columns: 1fr; } dl.spec dt { border-bottom: 0; padding-bottom: 0; } }
-footer { padding-block: 32px 48px; font-size: var(--step--1); color: var(--muted); }
-footer .wrap { display: grid; gap: 8px; }
+footer { background: var(--surface); border-top: 1px solid var(--line); padding-block: 48px 28px; font-size: var(--step--1); color: var(--muted); }
+footer .wrap { display: grid; gap: 40px; }
+.foot-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr) minmax(0, 1.4fr); gap: 32px 48px; }
+.foot-brand { display: grid; gap: 10px; align-content: start; }
+.foot-brand .brand { color: var(--ink); font-size: 1.25rem; }
+.foot-brand p { max-width: 34ch; }
+.foot-col { display: grid; gap: 10px; align-content: start; }
+.foot-col h2 { font-family: var(--font-data); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.foot-col > a { color: var(--ink); text-decoration: none; width: fit-content; }
+.foot-col > a:hover { color: var(--accent); }
+footer a { text-underline-offset: 3px; }
+.foot-base { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--line); font-size: 0.78rem; }
+.foot-base a { color: var(--ink); text-decoration: none; }
+.foot-base a:hover { color: var(--accent); }
+@media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: no-preference) { .mark { transition: cx 120ms ease, cy 120ms ease, x1 120ms ease, x2 120ms ease; } }
 </style>
 </head>
@@ -177,13 +204,12 @@ footer .wrap { display: grid; gap: 8px; }
       <div class="lede">
         <p class="eyebrow">Early warning for live games on Steam</p>
         <h1>Review 10% of your catalogue. Catch most of next year's collapses.</h1>
-        <p class="sub">Every quarter, Steam Decline Watch scores each of your live games: how likely it is to lose at least half of its players, compared with the rest of the Steam market, over the next 6 to 12 months. Every score comes with the reasons behind it.</p>
-        <p class="note">Tested every month from January to August 2019 on about 1,550 live games it had never seen, always trained only on outcomes known at the time.</p>
+        <p class="sub">A risk score for every live Steam game: will it lose half its players, relative to the market, within a year? Each score comes with its reasons.</p>
       </div>
       <div class="panel" aria-labelledby="sample-title">
         <div class="panel-head">
           <strong id="sample-title">Watch list, February 2019 (backtest)</strong>
-          <span>Selected rows out of 1,559 scored games, with what happened by January 2020</span>
+          <span>Selected rows of 1,559 games, with the outcome a year later</span>
         </div>
         <div class="table-scroll">
           <table>
@@ -191,7 +217,7 @@ footer .wrap { display: grid; gap: 8px; }
             <tbody id="sample-rows"></tbody>
           </table>
         </div>
-        <div class="panel-foot">"Kept vs market" = the game's later players as a share of its starting level, divided by the same share for the typical live game. Bold = collapsed (under 50%). False alarms and a miss are included on purpose.</div>
+        <div class="panel-foot">Kept vs market: players a year later, relative to the typical game. Bold = collapsed (under 50%). Misses included on purpose.</div>
       </div>
     </div>
   </section>
@@ -199,10 +225,10 @@ footer .wrap { display: grid; gap: 8px; }
   <section aria-label="Key results" style="padding-block: 28px;">
     <div class="wrap">
       <div class="stats">
-        <div class="stat"><b class="num">65%</b><span>of February 2019 collapses were in the top 10% of the ranking (56% on average over 8 test months)</span></div>
-        <div class="stat"><b class="num">0.83</b><span>average ranking quality (ROC-AUC) over 8 test months, against 0.59 for "it is already falling"</span></div>
-        <div class="stat"><b class="num">4.6% <small style="font-size:1rem">vs</small> 4.2%</b><span>predicted vs actual collapse rate, February 2019: the probabilities can be read at face value</span></div>
-        <div class="stat"><b class="num">3</b><span>plain-language reasons attached to every score</span></div>
+        <div class="stat"><b class="num">65%</b><span>of collapses caught by the top 10%</span></div>
+        <div class="stat"><b class="num">0.83</b><span>ROC-AUC over 8 test months (trend rule 0.59)</span></div>
+        <div class="stat"><b class="num">4.6% <small style="font-size:1rem">vs</small> 4.2%</b><span>predicted vs actual collapse rate</span></div>
+        <div class="stat"><b class="num">3</b><span>reasons with every score</span></div>
       </div>
     </div>
   </section>
@@ -210,26 +236,19 @@ footer .wrap { display: grid; gap: 8px; }
   <section id="problem">
     <div class="wrap">
       <p class="eyebrow">The problem</p>
-      <h2>Publishers have to decide where to spend before a game fades, and big drops are easy to miss</h2>
-      <div class="read" style="display:grid; gap:14px;">
-        <p>A publisher or live-ops team runs dozens or hundreds of games that are still on sale. Each quarter they decide which ones get updates, sales, events, community managers, marketing and server budget. A game that is about to lose half its audience needs a decision: invest to turn it around, or stop spending on it. The earlier that decision is made, the more options are left.</p>
-        <p class="callout"><strong>Our question:</strong> given the last 90 days of a game's Steam player counts, Twitch attention and store data, will its players over months 6–12 fall below half of where the typical live game ends up?</p>
-      </div>
+      <h2>Big drops are easy to miss until it is too late</h2>
+      <p class="read">Each quarter, publishers decide which live games get updates, sales and marketing. A game about to lose half its audience needs that decision early.</p>
       <div class="two">
         <div class="panel card">
           <h3>Who it is for</h3>
-          <ul class="plain">
-            <li>Portfolio managers and live-ops leads at publishers with many live games</li>
-            <li>Marketing analysts planning sales and campaigns</li>
-            <li>Storefronts, subscription services and investors judging a catalogue's health</li>
-          </ul>
+          <p>Live-ops and portfolio leads, marketing analysts, storefronts and investors.</p>
         </div>
         <div class="panel card">
-          <h3>Why simple rules are not enough</h3>
+          <h3>Why simple rules fail</h3>
           <ul class="plain">
-            <li><strong>"Watch the player count"</strong> only catches games that are already nearly empty. A drop from 5,000 to 800 players never trips a fixed floor.</li>
-            <li><strong>"Watch the trend"</strong> fails because games that spike after a sale or giveaway fall back almost as often as falling games keep falling.</li>
-            <li><strong>"Compare with last year"</strong> fails because the whole market moves: after the 2017 boom the median game lost 26%, while during the 2020 lockdowns it gained 34%.</li>
+            <li><strong>Player floors</strong> miss a drop from 5,000 to 800.</li>
+            <li><strong>Trends</strong> confuse post-sale spikes with decline.</li>
+            <li><strong>Year-on-year</strong> ignores the market: −26% in 2018, +34% in 2020.</li>
           </ul>
         </div>
       </div>
@@ -239,21 +258,21 @@ footer .wrap { display: grid; gap: 8px; }
   <section id="approach">
     <div class="wrap">
       <p class="eyebrow">How it works</p>
-      <h2>From five-minute player counts to a scored, explained watch list</h2>
+      <h2>From player counts to an explained watch list</h2>
       <ol class="steps">
-        <li class="panel"><h3>Collect</h3><p>303.6 million five-minute Steam player counts for 2,000 apps (Dec 2017 – Aug 2020), store metadata, and monthly Twitch statistics for the top 2,000 categories.</p></li>
-        <li class="panel"><h3>Clean and check</h3><p>1.94 million game-days; gaps kept as gaps; only real games (no demos, DLC or test servers); Twitch links validated, 6 wrong matches removed.</p></li>
-        <li class="panel"><h3>Learn from every month</h3><p>57 signals per game from each 90-day window, at 21 monthly start dates. The model learns from every start date whose outcome is already known.</p></li>
-        <li class="panel"><h3>Score, tier and explain</h3><p>A random forest gives a calibrated probability. The top 10% is the watch list, the next 20% the monitor tier. Each game gets its three main reasons.</p></li>
+        <li class="panel"><h3>Collect</h3><p>303.6M Steam player counts for 2,000 apps (2017–2020), store data, monthly Twitch stats.</p></li>
+        <li class="panel"><h3>Clean</h3><p>1.94M game-days, real games only, Twitch links checked by hand.</p></li>
+        <li class="panel"><h3>Learn</h3><p>57 signals from each 90-day window, at 21 monthly start dates.</p></li>
+        <li class="panel"><h3>Score</h3><p>A calibrated probability, a tier and three reasons per game.</p></li>
       </ol>
       <div class="two">
         <div class="panel card">
           <h3>What counts as a collapse</h3>
-          <p>A game collapses when its average players over months 6–12 fall below <strong>half of where the typical live game ends up</strong>. If the whole market drops 20%, a game must fall below 40% of its level to count. Market booms and slumps therefore do not change what a collapse means. We only score <strong>live</strong> games, meaning at least 10 average players.</p>
+          <p>Players in months 6–12 fall below <strong>half of where the typical live game ends up</strong>. Only live games (10+ players) are scored.</p>
         </div>
         <div class="panel card">
-          <h3>How we tested it honestly</h3>
-          <p>Every month from January to August 2019, the model was retrained on all start dates whose 12-month outcome was already known, then scored that month's live games. We compared its scores with what happened over the next year. Cross-validation is grouped by publisher, so a game never helps grade itself.</p>
+          <h3>How it was tested</h3>
+          <p>Retrained each month of 2019 on outcomes known by then, then scored games it had never seen.</p>
         </div>
       </div>
     </div>
@@ -262,8 +281,8 @@ footer .wrap { display: grid; gap: 8px; }
   <section id="results">
     <div class="wrap">
       <p class="eyebrow">Results</p>
-      <h2>A short review list that holds most of next year's collapses</h2>
-      <p class="read">Starting February 2019, 65 of 1,559 live games (4.2%) collapsed against the market. Move the slider to choose how much of the catalogue your team can review, and see how many of those 65 collapses the review would have covered.</p>
+      <h2>A short review list that holds most collapses</h2>
+      <p class="read">65 of 1,559 games collapsed after February 2019. Drag the slider: how many would a review of the riskiest games have caught?</p>
 
       <div class="panel figure" id="recall-figure">
         <div class="slider-row">
@@ -287,41 +306,41 @@ footer .wrap { display: grid; gap: 8px; }
       <div class="two">
         <div class="panel figure">
           <h3>It holds up every month</h3>
-          <p class="note">Ranking quality (ROC-AUC) for each test month. The model is retrained each month on all outcomes known by then.</p>
+          <p class="note">ROC-AUC per test month, 2019.</p>
           <div class="legend" aria-hidden="true">
             <span><i style="background:var(--accent)"></i>Steam Decline Watch</span>
             <span><i style="background:var(--serious)"></i>Same model, one start date</span>
             <span><i style="background:var(--neutral)"></i>Trend rule</span>
           </div>
-          <svg id="monthly-chart" viewBox="0 0 520 280" role="img" aria-label="Monthly ROC-AUC from January to August 2019: model 0.80 to 0.86, one start date 0.75 to 0.84, trend rule 0.55 to 0.65"></svg>
-          <p class="note">Learning from all known start dates beats learning from one in every month (average 0.834 vs 0.797).</p>
-        </div>
+          <svg id="monthly-chart" viewBox="0 0 520 280" role="img" aria-label="Monthly ROC-AUC from January to August 2019: model 0.80 to 0.86, one start date 0.75 to 0.84, trend rule 0.55 to 0.65"></svg>        </div>
         <div class="panel figure">
           <h3>The probabilities mean what they say</h3>
-          <p class="note">Share of games that collapsed in each tier (bar) against the model's average probability for that tier (tick), February 2019.</p>
-          <svg id="tier-chart" viewBox="0 0 520 230" role="img" aria-label="Watch list 27 percent collapsed, predicted 22 percent; monitor 3.2 percent, predicted 4.0 percent; stable 1.2 percent, predicted 2.4 percent"></svg>
-          <div class="table-scroll">
-            <table>
-              <thead><tr><th>Tier</th><th class="r">Games</th><th class="r">Collapsed</th><th class="r">Predicted</th><th class="r">Share of all collapses</th></tr></thead>
-              <tbody>
-                <tr><td><span class="chip watch">Watch list (top 10%)</span></td><td class="r num">155</td><td class="r num">27%</td><td class="r num">22%</td><td class="r num">65%</td></tr>
-                <tr><td><span class="chip monitor">Monitor (next 20%)</span></td><td class="r num">312</td><td class="r num">3.2%</td><td class="r num">4.0%</td><td class="r num">15%</td></tr>
-                <tr><td><span class="chip stable">Stable (other 70%)</span></td><td class="r num">1,092</td><td class="r num">1.2%</td><td class="r num">2.4%</td><td class="r num">20%</td></tr>
-              </tbody>
-            </table>
+          <p class="note">Actual vs expected collapses per tier, Feb 2019.</p>
+          <div class="legend" aria-hidden="true">
+            <span><i class="bar"></i>Share that collapsed</span>
+            <span><i class="tick"></i>Average predicted probability</span>
           </div>
+          <svg id="tier-chart" viewBox="0 0 520 196" role="img" aria-label="Watch list 27 percent collapsed, predicted 22 percent; monitor 3.2 percent, predicted 4.0 percent; stable 1.2 percent, predicted 2.4 percent"></svg>
+          <table class="compact">
+            <thead><tr><th>Tier</th><th class="r">Games</th><th class="r">Collapsed</th><th class="r">Predicted</th><th class="r">Of all collapses</th></tr></thead>
+            <tbody>
+              <tr><td><span class="chip watch">Watch list</span><span class="sub">top 10%</span></td><td class="r num">155</td><td class="r num">27%</td><td class="r num">22%</td><td class="r num">65%</td></tr>
+              <tr><td><span class="chip monitor">Monitor</span><span class="sub">next 20%</span></td><td class="r num">312</td><td class="r num">3.2%</td><td class="r num">4.0%</td><td class="r num">15%</td></tr>
+              <tr><td><span class="chip stable">Stable</span><span class="sub">other 70%</span></td><td class="r num">1,092</td><td class="r num">1.2%</td><td class="r num">2.4%</td><td class="r num">20%</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
       <div class="panel figure">
         <h3>Where it is strong, and where the evidence is thin</h3>
-        <p class="note">Ranking quality (ROC-AUC; 0.5 = coin flip, 1 = perfect) by game size and for launches, February 2019. Lines show the model's 95% interval.</p>
+        <p class="note">ROC-AUC (0.5 = coin flip) with 95% intervals, Feb 2019.</p>
         <div class="legend" aria-hidden="true">
           <span><i class="dot" style="background:var(--accent)"></i>Steam Decline Watch</span>
           <span><i class="dot" style="background:var(--neutral)"></i>90-day trend rule</span>
         </div>
         <svg id="slice-chart" viewBox="0 0 720 290" role="img" aria-label="Model AUC by slice: all games 0.84, 10 to 100 players 0.91, 100 to 1000 players 0.73, 1000 plus players 0.78 with a very wide interval, launches 0.77; trend rule 0.65, 0.72, 0.56, 0.40, 0.75"></svg>
-        <p class="note">Big games rarely collapse against the market: only 6 of 170 did, so the 1,000+ estimate is too uncertain to claim. Of the 11 big games on the watch list, 4 collapsed, including The Division and H1Z1. On launches the model is only slightly ahead of the trend rule.</p>
+        <p class="note">Only 6 big games collapsed, too few to judge. On launches it barely beats the trend.</p>
       </div>
     </div>
   </section>
@@ -330,14 +349,14 @@ footer .wrap { display: grid; gap: 8px; }
     <div class="wrap">
       <p class="eyebrow">Reasons for every flag</p>
       <h2>Spiky bursts, weak floors and falling trends drive the risk</h2>
-      <p class="read">The random forest's score splits exactly into one contribution per signal. Grouped into themes, the three that raise a game's risk the most become its reasons, written with the game's own numbers. Across the watch list, risk comes mostly from spiky player counts (22% of the risk-raising contribution), one-off peaks (14%), a weak floor (14%) and the trend (8%).</p>
+      <p class="read">Each score splits exactly into per-signal contributions. The top three become the game's reasons.</p>
       <div class="two">
-        <div class="panel card">
+        <div class="panel card example">
           <h3>Tom Clancy's The Division · 4,098 players</h3>
           <p class="note">Watch list, February 2019 · kept 16% a year later</p>
           <ul class="plain" id="reasons-division"></ul>
         </div>
-        <div class="panel card">
+        <div class="panel card example">
           <h3>Airstrike HD · 33 players</h3>
           <p class="note">Watch list, February 2019 · kept 1% a year later</p>
           <ul class="plain" id="reasons-airstrike"></ul>
@@ -345,17 +364,17 @@ footer .wrap { display: grid; gap: 8px; }
       </div>
       <div class="panel figure">
         <h3>Who collapses?</h3>
-        <p class="note">Share of live games that collapsed against the market within a year, from a December 2017 start (all games: 11.1%).</p>
+        <p class="note">Collapse rate from a Dec 2017 start (all games: 11%).</p>
         <svg id="driver-chart" viewBox="0 0 720 230" role="img" aria-label="Collapse rate by game age and by 90-day trend"></svg>
       </div>
       <div class="two">
         <div class="panel card">
           <h3>Twitch adds nothing</h3>
-          <p>Twitch numbers on their own rank poorly (ROC-AUC 0.60). Adding them to Steam and store data changes nothing (−0.006, within noise). The product could run on public Steam data alone.</p>
+          <p>Adding Twitch changes ROC-AUC by −0.006, which is noise. Steam data alone is enough.</p>
         </div>
         <div class="panel card">
-          <h3>Business model does not matter; age and genre do</h3>
-          <p>Free-to-play and paid games collapsed equally often (11% each). Casual (25%) and Indie (17%) games collapsed most, RPG (5%) and Strategy (6%) least. Games over five years old almost never collapsed (1%).</p>
+          <h3>Age and genre matter, price model does not</h3>
+          <p>Free-to-play and paid: 11% each. Casual 25%, Indie 17%. Games over 5 years: 1%.</p>
         </div>
       </div>
     </div>
@@ -365,7 +384,7 @@ footer .wrap { display: grid; gap: 8px; }
     <div class="wrap">
       <p class="eyebrow">Explore the watch list</p>
       <h2>Every scored game, with its risk and reasons</h2>
-      <p class="read">The <strong>forecast</strong> scores all live games on their last 90 days of data (15 May – 12 Aug 2020) and looks ahead to Nov 2020 – Aug 2021, beyond the data, so it cannot be checked here. The <strong>February 2019 backtest</strong> shows the same kind of list with what actually happened.</p>
+      <p class="read"><strong>Forecast:</strong> scored on May–Aug 2020, looking into 2021, not yet verifiable. <strong>Backtest:</strong> Feb 2019, with real outcomes.</p>
       <div class="panel">
         <div class="controls" role="search">
           <div class="seg" role="group" aria-label="List">
@@ -394,20 +413,20 @@ footer .wrap { display: grid; gap: 8px; }
       <h2>What the product does not do</h2>
       <div class="two">
         <div class="panel card">
-          <h3>Big games: too few collapses to prove it</h3>
-          <p>Against the market, only 6 of 170 big games collapsed in the February 2019 test. The model ranked them better than the rules (0.78 vs 0.40), but the interval runs from 0.46 to 0.99. The watch list did include The Division and H1Z1, but we cannot claim reliable performance for big games yet.</p>
+          <h3>Big games</h3>
+          <p>Only 6 of 170 collapsed; the interval (0.46–0.99) is too wide to claim anything.</p>
         </div>
         <div class="panel card">
-          <h3>New launches: barely better than the trend</h3>
-          <p>On 141 games scored from their own launch, the riskiest third collapsed 68% of the time and the safest third 13%. But the plain trend rule ranks launches almost as well (0.75 vs 0.77). A launch-specific model needs more launch data.</p>
+          <h3>New launches</h3>
+          <p>The trend rule ranks them almost as well (0.75 vs 0.77).</p>
         </div>
         <div class="panel card">
-          <h3>It flags, it does not explain causes</h3>
-          <p>The reasons say which signals raised the score, not what caused the decline or what will save the game. It only weakly predicts the exact size of the change (rank correlation 0.38), so it is not an audience forecast.</p>
+          <h3>Causes</h3>
+          <p>Reasons show which signals raised a score, not why a game declined.</p>
         </div>
         <div class="panel card">
-          <h3>One platform, one period</h3>
-          <p>About 2,000 Steam apps from Dec 2017 to Aug 2020. The dataset does not document how they were chosen and leans towards popular titles. The probabilities are slightly pessimistic for games that look safe (about 2.3% predicted against 1% actual).</p>
+          <h3>Scope</h3>
+          <p>2,000 mostly popular Steam apps, 2017–2020. Safe games are slightly over-predicted.</p>
         </div>
       </div>
     </div>
@@ -417,18 +436,16 @@ footer .wrap { display: grid; gap: 8px; }
     <div class="wrap">
       <p class="eyebrow">Technical report</p>
       <h2>Method in brief</h2>
-      <p class="read">The full report, notebooks and every number are in the <a href="https://github.com/d-m-g/steam-games-life-analysis">project repository</a> (<span class="num">reports/technical_report.md</span>, <span class="num">src/decline-analysis.ipynb</span>, <span class="num">reports/decline_metrics.json</span>).</p>
+      <p class="read">Full details are in the <a href="https://github.com/d-m-g/steam-games-life-analysis">repository</a> (<span class="num">reports/technical_report.md</span>).</p>
       <div class="panel" style="padding: 4px 18px;">
         <dl class="spec">
-          <dt>Data</dt><dd>Kaggle Steam dataset: 303.6M five-minute player counts for 2,000 apps, 14 Dec 2017 – 12 Aug 2020, plus genres, tags, languages, publishers. SullyGnome monthly Twitch statistics, Jan 2017 – Dec 2020.</dd>
-          <dt>Cleaning</dt><dd>4.77M unreadable readings (1.6%) dropped and counted; daily aggregation to 1.94M game-days; missing days never set to zero; explicit release-date parsing; only <span class="num">type = game</span> (1,851 apps).</dd>
-          <dt>Validation of joins</dt><dd>Every Twitch–Steam link scored by name similarity and weak links reviewed: 6 wrong links removed, 13 split categories merged.</dd>
-          <dt>Target</dt><dd>A game's mean players in days 180–365 after a start date, relative to days 0–89, divided by the median live game's same ratio. Below 0.5 = collapse. Live games only (≥ 10 players). A 90-day gap separates features and outcome.</dd>
-          <dt>Training data</dt><dd>21 start dates (14 Dec 2017, then monthly to 1 Aug 2019), about 1,600 live games each. Each model uses only start dates whose outcome was complete before its test date.</dd>
-          <dt>Features</dt><dd>8 Steam-activity, 7 Twitch and 42 metadata signals, all from the 90-day window only.</dd>
-          <dt>Model</dt><dd>Random forest (500 trees) with sigmoid calibration fitted on publisher-grouped out-of-fold scores. Compared with logistic regression, gradient boosting, a trend rule, an age rule and "no change".</dd>
-          <dt>Evaluation</dt><dd>February 2019 test with bootstrap 95% intervals, plus a monthly backtest from January to August 2019. ROC-AUC, watch-list precision and recall, calibration, size and launch slices, ablation, permutation importance.</dd>
-          <dt>Explanations</dt><dd>Exact tree-path decomposition of the forest's score into per-feature contributions, grouped into 14 themes; the top three become each game's reasons.</dd>
+          <dt>Steam data</dt><dd><a href="https://doi.org/10.17632/ycy3sy3vj2.1">Steam Games Dataset</a>, Wannigamage et al., Mendeley Data, 2020 (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>). 2,000 apps, Dec 2017 – Aug 2020, aggregated to daily means.</dd>
+          <dt>Twitch data</dt><dd>David Boyd – <a href="https://sullygnome.com/">SullyGnome.com</a>, monthly game statistics 2017–2020, used with permission.</dd>
+          <dt>Cleaning</dt><dd>1.94M game-days, 1,851 games; 6 wrong Twitch links removed.</dd>
+          <dt>Target</dt><dd>Players in days 180–365 vs days 0–89, relative to the median live game. Below 0.5 = collapse.</dd>
+          <dt>Training</dt><dd>21 monthly start dates; each test uses only outcomes known before it.</dd>
+          <dt>Model</dt><dd>Calibrated random forest (500 trees), compared with logistic regression, boosting and simple rules.</dd>
+          <dt>Explanations</dt><dd>Exact tree-path decomposition, grouped into 14 themes.</dd>
         </dl>
       </div>
     </div>
@@ -439,10 +456,10 @@ footer .wrap { display: grid; gap: 8px; }
       <p class="eyebrow">Learning outcomes</p>
       <h2>What we learned building it</h2>
       <div class="two">
-        <div class="panel card"><h3>The target defines the product</h3><p>Our first model, "will a game stay above 10 players?", scored 0.98 but mostly flagged games that already had about 2 players. A relative collapse made it useful, and measuring that collapse against the market made its probabilities trustworthy.</p></div>
-        <div class="panel card"><h3>A score means little without a baseline</h3><p>Every result here is compared with rules a publisher could apply without us: the trend, the game's age, "no change". The model wins on ranking, not on predicting exact audience sizes.</p></div>
-        <div class="panel card"><h3>Test the way it will be used</h3><p>Our first "chronological" split only separated games first recorded four days apart. A monthly backtest, retrained each month on what was known at the time, showed that more history helps and that the market swings between years.</p></div>
-        <div class="panel card"><h3>Check every derived column and join</h3><p>An alphabetical genre list silently produced a fake "primary genre", and fuzzy name matching produced wrong Twitch links. Both changed results until we caught them.</p></div>
+        <div class="panel card"><h3>The target defines the product</h3><p>"Stays above 10 players" scored 0.98 but only flagged near-empty games.</p></div>
+        <div class="panel card"><h3>Always compare with a baseline</h3><p>Every result is set against rules a publisher could apply alone.</p></div>
+        <div class="panel card"><h3>Test the way it will be used</h3><p>A monthly backtest showed that more history helps and the market swings.</p></div>
+        <div class="panel card"><h3>Check every join</h3><p>A fake "primary genre" and wrong Twitch links changed results until caught.</p></div>
       </div>
     </div>
   </section>
@@ -450,8 +467,27 @@ footer .wrap { display: grid; gap: 8px; }
 
 <footer>
   <div class="wrap">
-    <p>Steam Decline Watch is a university data science project. Data: Steam player counts and store data (Kaggle), Twitch statistics (SullyGnome). All results are from historical backtests; the forecast list is not verified.</p>
-    <p>Repository: <a href="https://github.com/d-m-g/steam-games-life-analysis">github.com/d-m-g/steam-games-life-analysis</a></p>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand">Steam Decline Watch</div>
+        <p>Early warning for live games on Steam. A university data science project.</p>
+      </div>
+      <nav class="foot-col" aria-label="Project">
+        <h2>Project</h2>
+        <a href="https://github.com/d-m-g/steam-games-life-analysis">Source code</a>
+        <a href="https://github.com/d-m-g/steam-games-life-analysis/blob/main/reports/technical_report.md">Technical report</a>
+        <a href="#explore">Watch list</a>
+      </nav>
+      <div class="foot-col">
+        <h2>Data</h2>
+        <p><a href="https://doi.org/10.17632/ycy3sy3vj2.1">Steam Games Dataset</a><br>Wannigamage et al., Mendeley Data, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+        <p>Twitch statistics: David Boyd – <a href="https://sullygnome.com/">SullyGnome.com</a>, used with permission</p>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 <a href="https://d-m-g.dev/">Dmitrii Gorovoi</a></span>
+      <span>Results are historical backtests; the forecast is not verified.</span>
+    </div>
   </div>
 </footer>
 
@@ -591,11 +627,10 @@ footer .wrap { display: grid; gap: 8px; }
     el("path", { d: `M${T.left} ${y}h${w - 4}a4 4 0 0 1 4 4v${T.bar - 8}a4 4 0 0 1 -4 4h${-(w - 4)}z`, fill: tierColors[t.name] }, tierSvg);
     const px = tx(t.mean_probability);
     el("line", { x1: px, x2: px, y1: y - 5, y2: y + T.bar + 5, stroke: "var(--ink)", "stroke-width": 2.5 }, tierSvg);
-    el("text", { x: Math.max(T.left + w, px) + 10, y: y + T.bar / 2 + 4, "font-size": 12.5, fill: "var(--ink)", "font-family": "var(--font-data)" }, tierSvg, `${pct1(t.share_collapsed)} actual · ${pct1(t.mean_probability)} predicted`);
+    el("text", { x: Math.max(T.left + w, px) + 10, y: y + T.bar / 2 + 5, "font-size": 14, "font-weight": 600, fill: "var(--ink)", "font-family": "var(--font-data)" }, tierSvg, pct1(t.share_collapsed));
     const hit = el("rect", { x: T.left, y: y - 6, width: T.right - T.left, height: T.bar + 12, fill: "transparent" }, tierSvg);
     hover(hit, `<b>${t.name}</b><br>${t.collapsed} of ${t.games.toLocaleString("en-US")} games collapsed (${pct1(t.share_collapsed)})<br>Average predicted probability ${pct1(t.mean_probability)}`);
   });
-  el("text", { x: T.left, y: T.top + T.row * 3 + 36, "font-size": 11.5, fill: "var(--muted)" }, tierSvg, "Bar = share that collapsed; tick = average predicted probability");
 
   // Slice chart.
   const sizeRows = METRICS.by_size;

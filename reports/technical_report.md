@@ -2,7 +2,7 @@
 
 ## Summary
 
-Steam Decline Watch scores each live Steam game (≥ 10 average players) for the risk of a **collapse**: over months 6–12, the game's players fall below **half of where the typical live game ends up**. Scores use 90 days of Steam player counts, Twitch attention and store metadata. The data covers 1,851 games tracked every five minutes from 14 Dec 2017 to 12 Aug 2020.
+Steam Decline Watch scores each live Steam game (≥ 10 average players) for the risk of a **collapse**: over months 6–12, the game's players fall below **half of where the typical live game ends up**. Scores use 90 days of Steam player counts, Twitch attention and store metadata. The data covers 1,851 games tracked every five minutes or every hour from 14 Dec 2017 to 12 Aug 2020.
 
 The model is a calibrated random forest. It learns from every monthly start date whose outcome is already known, and every score comes with three plain-language reasons.
 
@@ -45,19 +45,21 @@ The analysis is predictive and associative. It makes no causal claims.
 
 | Source | Content | Size |
 | --- | --- | --- |
-| Steam player-count histories | Concurrent players every 5 minutes per app | 2,000 apps, 303.6M readings, 14 Dec 2017 – 12 Aug 2020 |
+| Steam player-count histories | Concurrent players per app: every 5 minutes for the top 1,000 apps, hourly for the next 1,000 | 2,000 apps, 303.6M readings, 14 Dec 2017 – 12 Aug 2020 |
 | Steam store metadata | Type, release date, free-to-play, genres, tags, languages, packages, developers, publishers | 2,000 apps |
-| SullyGnome | Monthly Twitch statistics for the top 2,000 game categories | Jan 2017 – Dec 2020, 96,000 rows |
+| David Boyd – [SullyGnome.com](https://sullygnome.com/) | Monthly Twitch statistics for the top 2,000 game categories by watch time ("Most watched"), used with the site owner's permission | Jan 2017 – Dec 2020, 96,000 rows |
 | Twitch ↔ Steam map | Candidate links between SullyGnome categories and Steam app IDs (URL slug or exact name) | 1,237 links |
 
-The Kaggle dataset also contains `PriceHistory/` (daily prices for 1,512 games). It starts in Apr 2019, after most of our training windows, and is not used.
+The Steam data, player histories and store metadata, is the *Steam Games Dataset* by Wannigamage, Barlow, Lakshika and Kasmarik (Mendeley Data, V1, 2020, [doi:10.17632/ycy3sy3vj2.1](https://doi.org/10.17632/ycy3sy3vj2.1)), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Its 2,000 apps were the most played on Steam on 11 Dec 2017. We aggregate its player counts to daily means and keep only games; the raw files are not redistributed.
+
+The dataset also contains `PriceHistory/` (daily prices for 1,512 games). It starts in Apr 2019, after most of our training windows, and is not used.
 
 ## 3. Data life cycle
 
-1. **Collection.** Public Kaggle Steam dataset plus scraped SullyGnome monthly tables (see README).
+1. **Collection.** Public Steam Games Dataset (Mendeley Data) plus SullyGnome's monthly game tables (David Boyd – SullyGnome.com), downloaded on 22 Sep 2026 with the owner's permission (see README).
 2. **Cleaning** (`preprocess.ipynb`).
    - 4.77M readings (1.6%) with an unparseable time or count are dropped and counted.
-   - Five-minute readings are aggregated to 1.94M game-days. Missing days stay missing and are never set to zero.
+   - Five-minute and hourly readings are aggregated to 1.94M game-days. Missing days stay missing and are never set to zero.
    - Release dates are parsed with an explicit format; the 7 month-only dates are recovered.
 3. **Validation** (`twitch-mapping.ipynb`).
    - Every Twitch link is scored by name similarity, and links under 0.6 were reviewed by hand.
@@ -243,7 +245,7 @@ Many of the riskiest games are small titles whose 90-day average was inflated by
 - **Panel aging.** The same games age through the period, which explains part of the early drift in collapse rates.
 - **Model choice.** The forest was fixed from the previous version. In this version's CV, logistic regression was marginally higher but within noise, and it scored 0.811 on the test against the forest's 0.843.
 - **Associations only.** Reasons show which signals raised a score, not what caused a decline or what will help.
-- **Twitch coverage.** Only the top 2,000 categories per month are available, and the script that produced the candidate mapping is not in the repository.
+- **Twitch coverage.** Only the top 2,000 categories per month are available.
 
 ## 8. Secondary model: end of life (stays above 10 players)
 
