@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- Source for ../og.png (1200x630 social preview). apple-touch-icon.html in this
+     folder is the source for ../apple-touch-icon.png (180x180). Render both from the repository root with:
+     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --hide-scrollbars \
+       --virtual-time-budget=5000 --window-size=1200,630 --screenshot=website/og.png website/og/og.html
+     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --hide-scrollbars \
+       --window-size=180,180 --screenshot=website/apple-touch-icon.png website/og/apple-touch-icon.html -->
+<!-- Not deployed: only the rendered PNGs go to the server. -->
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112,800&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1200px; height: 630px; background: #0f1217; color: #e8ecf1; font-family: "IBM Plex Sans", sans-serif; padding: 68px 80px 64px; display: grid; grid-template-rows: auto 1fr auto; position: relative; overflow: hidden; }
+  .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 22px; letter-spacing: 0.1em; text-transform: uppercase; color: #a2acb8; display: flex; align-items: center; gap: 16px; }
+  .eyebrow img { width: 44px; height: 44px; }
+  h1 { font-family: "Archivo", sans-serif; font-stretch: 112%; font-weight: 800; font-size: 74px; line-height: 1.04; letter-spacing: -0.01em; max-width: 740px; align-self: center; }
+  .stats { display: flex; gap: 56px; border-top: 2px solid #29303a; padding-top: 26px; }
+  .stats b { display: block; font-family: "Archivo", sans-serif; font-stretch: 112%; font-weight: 800; font-size: 46px; color: #3987e5; }
+  .stats span { font-size: 21px; color: #a2acb8; }
+  svg.curve { position: absolute; right: 80px; top: 130px; width: 300px; height: 250px; }
+  .url { position: absolute; right: 80px; bottom: 74px; font-family: "IBM Plex Mono", monospace; font-size: 22px; color: #a2acb8; }
+</style></head>
+<body>
+  <div class="eyebrow"><img src="../favicon.svg" alt="">Steam Decline Watch</div>
+  <h1>Review 10% of your catalogue. Catch most collapses.</h1>
+  <svg class="curve" viewBox="0 0 300 250"><polyline points="12,30 92,62 150,52 276,214" fill="none" stroke="#3987e5" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><circle cx="276" cy="214" r="17" fill="#d03b3b"/></svg>
+  <div class="stats">
+    <div><b>65%</b><span>of collapses in the top 10%</span></div>
+    <div><b>0.83</b><span>ROC-AUC over 8 months</span></div>
+    <div><b>1,559</b><span>live games scored</span></div>
+  </div>
+  <div class="url">decline.d-m-g.dev</div>
+</body></html>
